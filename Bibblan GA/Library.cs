@@ -8,28 +8,36 @@ namespace Bibblan_GA
 {
     class Library
     {
-        List<Item> books = new List<Item>
+        List<Item> books;
+
+        public Library()
         {
-            new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-            new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-            new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-            new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-            new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-            new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-            new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-            new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-            new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-            new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-            new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-            new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-            new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-            new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-            new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-            new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-            new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-            new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-            new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-            new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-        };
+            books = new List<Item>();
+            books.Add(new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"));
+        }
+            
+        //List<Item> books = new List<Item>
+        //{
+        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
+        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
+        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
+        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
+        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
+        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
+        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
+        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
+        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
+        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
+        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
+        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
+        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
+        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
+        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
+        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
+        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
+        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
+        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
+        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
+        //};
     }
 }
