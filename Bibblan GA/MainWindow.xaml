@@ -5,8 +5,35 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bibblan_GA"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+        Title="MainWindow" WindowStartupLocation="CenterScreen" WindowState="Maximized">
+    <Border Padding="20 10 20 10">
+        <StackPanel>
+            <TextBlock FontSize="30" HorizontalAlignment="center" Margin="0 0 0 40">BIBBLAN.SE</TextBlock>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Border Padding="10">
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Search" />
+                        <TextBox Width="250" HorizontalAlignment="Left" />
+                        <Button Content="Fantasy" Margin="0 10" Width="100" />
+
+                    </StackPanel>
+                </Border>
+                <StackPanel Grid.Column="1">
+                    <ListBox Height="400" />
+                </StackPanel>
+
+            </Grid>
+            <Grid>
+                <StackPanel>
+
+
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+    </Border>
 </Window>
