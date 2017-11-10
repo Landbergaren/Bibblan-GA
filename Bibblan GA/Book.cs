@@ -10,14 +10,9 @@ namespace Bibblan_GA
     {
         string type;
 
-        public Book(string inName, string inAuthor, string ingenre) : base(inName, inAuthor, ingenre)
+        public Book(string inName, string inAuthor, string ingenre, int intotalBooks, int inPages) : base(inName, inAuthor, ingenre, intotalBooks, inPages)
         {
             type = "book";
-        }
-
-        public override void Rent(string customerName, int customerAge)
-        {
-            base.Rent(customerName, customerAge);
         }
     }
 }

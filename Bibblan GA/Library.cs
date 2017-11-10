@@ -13,31 +13,14 @@ namespace Bibblan_GA
         public Library()
         {
             books = new List<Item>();
-            books.Add(new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"));
+            books.Add(new Book("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", 3, 250));
+            books.Add(new Book("Harry Potter and the Philosophers Stone", "J.K Rowling", "Fantasy", 3, 200));
+            books.Add(new Book("fjdslldsf", "iosdrse", "haha", 51, 231));
+            books.Add(new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction", 3, 250));
+            books.Add(new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction", 3, 250));
+            books.Add(new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction", 3, 250));
+            books.Add(new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction", 3, 250));
+            books.Add(new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction", 3, 250));
         }
-            
-        //List<Item> books = new List<Item>
-        //{
-        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-        //    new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction"),
-        //};
     }
 }
