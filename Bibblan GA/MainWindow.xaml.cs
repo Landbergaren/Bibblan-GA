@@ -22,6 +22,8 @@ namespace Bibblan_GA
     {
         public MainWindow()
         {
+
+        
             InitializeComponent();
         }
     }
