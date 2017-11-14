@@ -40,5 +40,15 @@ namespace Bibblan_GA
         {
             listView.ItemsSource = library.Where(x => x.Title.Contains(searchField.Text)).ToList();
         }
+
+        private void availableCB_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void titelCB_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -5,30 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bibblan_GA"
         mc:Ignorable="d"
-        Title="Bibblan" WindowStartupLocation="CenterScreen" WindowState="Maximized" Height="613.347">
+        Title="Bibblan" WindowStartupLocation="CenterScreen" Width="1000" Height="613.347">
     <Border Padding="20 10 20 10">
         <StackPanel>
             <TextBlock FontSize="30" HorizontalAlignment="center" Margin="0 0 0 40">BIBBLAN.SE</TextBlock>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
-                    <ColumnDefinition />
+                    <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="0" Margin="0,0,0,300">
                     <TextBlock Text="Search" />
-                    <TextBox x:Name="searchField" Width="250" HorizontalAlignment="Left" />
-                    <Button Content="Find" Margin="0 10" Width="80" HorizontalAlignment="Left" Click="Button_Click" />
-                    <Grid>
+                    <TextBox x:Name="searchField" Width="250" HorizontalAlignment="Left" Margin="0 0 0 10" />
+
+                    <Grid Width="260" HorizontalAlignment="Left">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition />
-                            <ColumnDefinition />
+                            <ColumnDefinition Width="2*"/>
                             <ColumnDefinition Width="2*" />
                         </Grid.ColumnDefinitions>
                         <StackPanel Width="50" HorizontalAlignment="Left">
                             <TextBlock Text="Title" />
-                            <CheckBox  />
+                            <CheckBox x:Name="titelCB" Click="titelCB_Click" />
                             <TextBlock Text="Author" />
                             <CheckBox  />
                         </StackPanel>
@@ -38,17 +38,20 @@
                             <TextBlock Text="ISBN" />
                             <CheckBox  />
                         </StackPanel>
-                        <StackPanel Grid.Column="2">
+                        <StackPanel Grid.Column="2" >
                             <TextBlock Text="Available" />
-                            <CheckBox  />
-
+                            <CheckBox x:Name="availableCB" Click="availableCB_Click" />
                         </StackPanel>
-
+                    </Grid>
+                    <Grid>
+                        <StackPanel>
+                            <Button Content="Find" Margin="0 10" Width="80" HorizontalAlignment="Left" Click="Button_Click" />
+                        </StackPanel>
                     </Grid>
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" Grid.Row="0">
-                    <ListView x:Name="listView" Height="400" Grid.RowSpan="2">
+                    <ListView x:Name="listView" Height="400">
                         <ListView.View>
                             <GridView >
                                 <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}" />
