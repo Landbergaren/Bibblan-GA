@@ -24,7 +24,17 @@
                     </StackPanel>
                 </Border>
                 <StackPanel Grid.Column="1">
-                    <ListBox Height="400" />
+                    <ListView x:Name="listView" Height="400">
+                        <ListView.View>
+                            <GridView >
+                                <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}"/>
+                                <GridViewColumn Header="Author" DisplayMemberBinding="{Binding Author}" />
+                                <GridViewColumn Header="Genre" DisplayMemberBinding="{Binding Genre}" />
+                                <GridViewColumn Header="ISBN" DisplayMemberBinding="{Binding Isbn}" />
+                                <GridViewColumn Header="Pages" DisplayMemberBinding="{Binding Pages}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
                 </StackPanel>
 
             </Grid>

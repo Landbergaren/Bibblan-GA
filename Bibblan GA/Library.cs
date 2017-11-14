@@ -8,19 +8,19 @@ namespace Bibblan_GA
 {
     class Library
     {
-        List<Item> books;
+        public List<Book> Books;
 
         public Library()
         {
-            books = new List<Item>();
-            books.Add(new Book("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", 3, 250));
-            books.Add(new Book("Harry Potter and the Philosophers Stone", "J.K Rowling", "Fantasy", 3, 200));
-            books.Add(new Book("fjdslldsf", "iosdrse", "haha", 51, 231));
-            books.Add(new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction", 3, 250));
-            books.Add(new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction", 3, 250));
-            books.Add(new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction", 3, 250));
-            books.Add(new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction", 3, 250));
-            books.Add(new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction", 3, 250));
+            Books = new List<Book>();
+            Books.Add(new Book("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", 3, 250));
+            Books.Add(new Book("Harry Potter and the Philosophers Stone", "J.K Rowling", "Fantasy", 3, 200));
+            Books.Add(new Book("fjdslldsf", "iosdrse", "haha", 51, 231));
+            Books.Add(new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction", 3, 250));
+            Books.Add(new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction", 3, 250));
+            Books.Add(new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction", 3, 250));
+            Books.Add(new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction", 3, 250));
+            Books.Add(new Book("the Great Gatsby", "F. Scott Fitzgerald", "Fiction", 3, 250));
         }
     }
 }

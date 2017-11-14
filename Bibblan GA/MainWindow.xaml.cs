@@ -20,11 +20,19 @@ namespace Bibblan_GA
     /// </summary>
     public partial class MainWindow : Window
     {
+        Library libraryBooks = new Library();
+        
+
         public MainWindow()
         {
-
-        
             InitializeComponent();
+
+            foreach (var item in libraryBooks.Books)
+            {
+                                this.listView.Items.Add(item);
+            }
         }
+
+
     }
 }
