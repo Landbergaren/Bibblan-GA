@@ -30,9 +30,13 @@ namespace Bibblan_GA
             foreach (var item in libraryBooks.Books)
             {
                                 this.listView.Items.Add(item);
-            }
+            }          
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            listView.Items.Clear();
 
+        }
     }
 }
