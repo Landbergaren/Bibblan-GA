@@ -20,11 +20,25 @@ namespace Bibblan_GA
     /// </summary>
     public partial class MainWindow : Window
     {
+        List<Book> library = Library.BuildLibrary();        
+
         public MainWindow()
         {
-
-        
             InitializeComponent();
+            InitializeLibraryList();
+
+            //library = library.OrderBy(x => x.Author).ToList(); <-- Orders lists with a lambda. 
+
+        }
+
+        public void InitializeLibraryList()
+        {
+            listView.ItemsSource = library;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            listView.ItemsSource = library.Where(x => x.Title.Contains(searchField.Text)).ToList();
         }
     }
 }

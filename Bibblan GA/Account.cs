@@ -27,19 +27,19 @@ namespace Bibblan_GA
     {
         bool vip;
 
-        public Adult()
+        public Adult(string name, string phonenumber, int age) : base(name, phonenumber, age)
         {
-            
         }
+
+
     }
 
     class Minor : Account
     {
         string parent;
 
-        public Minor()
+        public Minor(string name, string phonenumber, int age) : base(name, phonenumber, age)
         {
-
         }
     }
 
