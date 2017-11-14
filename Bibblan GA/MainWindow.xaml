@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bibblan_GA"
         mc:Ignorable="d"
-        Title="Bibblan" WindowStartupLocation="CenterScreen" WindowState="Maximized">
+        Title="Bibblan" WindowStartupLocation="CenterScreen" WindowState="Maximized" Height="613.347">
     <Border Padding="20 10 20 10">
         <StackPanel>
             <TextBlock FontSize="30" HorizontalAlignment="center" Margin="0 0 0 40">BIBBLAN.SE</TextBlock>
@@ -15,19 +15,43 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
-                <Border Padding="10">
-                    <StackPanel Grid.Column="0">
-                        <TextBlock Text="Search" />
-                        <TextBox x:Name="searchField" Width="250" HorizontalAlignment="Left" />
-                        <Button Content="Find" Margin="0 10" Width="80" HorizontalAlignment="Left" Click="Button_Click" />
+                <StackPanel Grid.Column="0" Margin="0,0,0,300">
+                    <TextBlock Text="Search" />
+                    <TextBox x:Name="searchField" Width="250" HorizontalAlignment="Left" />
+                    <Button Content="Find" Margin="0 10" Width="80" HorizontalAlignment="Left" Click="Button_Click" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Width="50" HorizontalAlignment="Left">
+                            <TextBlock Text="Title" />
+                            <CheckBox  />
+                            <TextBlock Text="Author" />
+                            <CheckBox  />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Width="50" HorizontalAlignment="Left">
+                            <TextBlock Text="Genre" />
+                            <CheckBox  />
+                            <TextBlock Text="ISBN" />
+                            <CheckBox  />
+                        </StackPanel>
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="Available" />
+                            <CheckBox  />
 
-                    </StackPanel>
-                </Border>
-                <StackPanel Grid.Column="1">
-                    <ListView x:Name="listView" Height="400">
+                        </StackPanel>
+
+                    </Grid>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Grid.Row="0">
+                    <ListView x:Name="listView" Height="400" Grid.RowSpan="2">
                         <ListView.View>
                             <GridView >
-                                <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}"/>
+                                <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}" />
                                 <GridViewColumn Header="Author" DisplayMemberBinding="{Binding Author}" />
                                 <GridViewColumn Header="Genre" DisplayMemberBinding="{Binding Genre}" />
                                 <GridViewColumn Header="ISBN" DisplayMemberBinding="{Binding Isbn}" />
@@ -40,7 +64,6 @@
             </Grid>
             <Grid>
                 <StackPanel>
-
 
                 </StackPanel>
             </Grid>

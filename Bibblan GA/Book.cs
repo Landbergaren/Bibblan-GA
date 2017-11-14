@@ -19,8 +19,7 @@ namespace Bibblan_GA
 
         static int isbnCounter = 1000;
 
-        public string Title { get => Title1; set => Title1 = value; }
-        public string Title1 { get => title; set => title = value; }
+        public string Title { get => title; set => title = value; }
         public string Author { get => author; set => author = value; }
         public string Genre { get => genre; set => genre = value; }
         public int Isbn { get => isbn; set => isbn = value; }
