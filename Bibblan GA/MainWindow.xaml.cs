@@ -36,9 +36,19 @@ namespace Bibblan_GA
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+
             if (SearchDel != null)
                 SearchDel(this, EventArgs.Empty);
+        }
 
+        private void AllCB_Checked(object sender, RoutedEventArgs e)
+        {
+            SearchDel += AllChecked;
+        }
+
+        private void AllCB_Unchecked(object sender, RoutedEventArgs e)
+        {
+            SearchDel -= AllChecked;
         }
 
         private void titelCB_Checked(object sender, RoutedEventArgs e)
@@ -61,13 +71,49 @@ namespace Bibblan_GA
             SearchDel -= AuthorChecked;
         }
 
+        private void GenreCB_Checked(object sender, RoutedEventArgs e)
+        {
+            SearchDel += GenreChecked;
+        }
+
+        private void GenreCB_Unchecked(object sender, RoutedEventArgs e)
+        {
+            SearchDel -= GenreChecked;
+        }
+
+        private void availableCB_Checked(object sender, RoutedEventArgs e)
+        {
+            SearchDel += AvailableChecked;
+        }
+
+        private void availableCB_Unchecked(object sender, RoutedEventArgs e)
+        {
+            SearchDel -= AvailableChecked;
+        }
+
+        private void IsbnCB_Checked(object sender, RoutedEventArgs e)
+        {
+            SearchDel += IsbnChecked;
+        }
+
+        private void IsbnCB_Unchecked(object sender, RoutedEventArgs e)
+        {
+            SearchDel -= IsbnChecked;
+        }
+
         #endregion
 
         #region Methods
 
+
         public void InitializeLibraryList()
         {
             listView.ItemsSource = library;
+        }
+
+        public void AllChecked(object source, EventArgs args)
+        {
+            listView.ItemsSource = library.Where(x => (x.Title + x.Genre + x.Isbn + x.Author).Contains(searchField.Text)).ToList();
         }
 
         public void TitelChecked(object source, EventArgs args)
@@ -78,6 +124,21 @@ namespace Bibblan_GA
         public void AuthorChecked(object source, EventArgs args)
         {
             listView.ItemsSource = library.Where(x => x.Author.Contains(searchField.Text)).ToList();
+        }
+
+        public void GenreChecked(object source, EventArgs args)
+        {
+            listView.ItemsSource = library.Where(x => x.Genre.Contains(searchField.Text)).ToList();
+        }
+
+        public void AvailableChecked(object source, EventArgs args)
+        {
+            listView.ItemsSource = library.Where(x => x.Availability).ToList();
+        }
+
+        public void IsbnChecked(object source, EventArgs args)
+        {
+            listView.ItemsSource = library.Where(x => x.Isbn.ToString().Contains(searchField.Text)).ToList();
         }
 
         #endregion
