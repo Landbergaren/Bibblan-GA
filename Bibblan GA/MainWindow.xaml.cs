@@ -113,22 +113,22 @@ namespace Bibblan_GA
 
         public void AllChecked(object source, EventArgs args)
         {
-            listView.ItemsSource = library.Where(x => (x.Title + x.Genre + x.Isbn + x.Author).Contains(searchField.Text)).ToList();
+            listView.ItemsSource = library.Where(x => (x.Title + x.Genre + x.Isbn + x.Author).ToLower().Contains(searchField.Text.ToLower())).ToList();
         }
 
         public void TitelChecked(object source, EventArgs args)
         {
-            listView.ItemsSource = library.Where(x => x.Title.Contains(searchField.Text)).ToList();
+            listView.ItemsSource = library.Where(x => x.Title.ToLower().Contains(searchField.Text.ToLower())).ToList();
         }
 
         public void AuthorChecked(object source, EventArgs args)
         {
-            listView.ItemsSource = library.Where(x => x.Author.Contains(searchField.Text)).ToList();
+            listView.ItemsSource = library.Where(x => x.Author.ToLower().Contains(searchField.Text.ToLower())).ToList();
         }
 
         public void GenreChecked(object source, EventArgs args)
         {
-            listView.ItemsSource = library.Where(x => x.Genre.Contains(searchField.Text)).ToList();
+            listView.ItemsSource = library.Where(x => x.Genre.ToLower().Contains(searchField.Text.ToLower())).ToList();
         }
 
         public void AvailableChecked(object source, EventArgs args)
