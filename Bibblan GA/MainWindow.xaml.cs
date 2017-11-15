@@ -20,7 +20,8 @@ namespace Bibblan_GA
     /// </summary>
     public partial class MainWindow : Window
     {
-        List<Book> library = Library.BuildLibrary();        
+        List<Book> library = Library.BuildLibrary();
+        public event EventHandler SearchDel;
 
         public MainWindow()
         {
@@ -31,25 +32,56 @@ namespace Bibblan_GA
 
         }
 
+        #region EventHandlers
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (SearchDel != null)
+                SearchDel(this, EventArgs.Empty);
+
+        }
+
+        private void titelCB_Checked(object sender, RoutedEventArgs e)
+        {
+            SearchDel += TitelChecked;
+        }
+
+        private void titelCB_Unchecked(object sender, RoutedEventArgs e)
+        {
+            SearchDel -= TitelChecked;
+        }
+
+        private void AuthorCB_Checked(object sender, RoutedEventArgs e)
+        {
+            SearchDel += AuthorChecked;
+        }
+
+        private void AuthorCB_Unchecked(object sender, RoutedEventArgs e)
+        {
+            SearchDel -= AuthorChecked;
+        }
+
+        #endregion
+
+        #region Methods
+
         public void InitializeLibraryList()
         {
             listView.ItemsSource = library;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        public void TitelChecked(object source, EventArgs args)
         {
             listView.ItemsSource = library.Where(x => x.Title.Contains(searchField.Text)).ToList();
-            searchField.Clear();
         }
 
-        private void availableCB_Click(object sender, RoutedEventArgs e)
+        public void AuthorChecked(object source, EventArgs args)
         {
-
+            listView.ItemsSource = library.Where(x => x.Author.Contains(searchField.Text)).ToList();
         }
 
-        private void titelCB_Click(object sender, RoutedEventArgs e)
-        {
+        #endregion
 
-        }
+
     }
 }

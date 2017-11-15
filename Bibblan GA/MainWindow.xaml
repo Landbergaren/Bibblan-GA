@@ -28,9 +28,9 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel Width="50" HorizontalAlignment="Left">
                             <TextBlock Text="Title" />
-                            <CheckBox x:Name="titelCB" Click="titelCB_Click" />
+                            <CheckBox x:Name="titelCB" Unchecked="titelCB_Unchecked" Checked="titelCB_Checked" />
                             <TextBlock Text="Author" />
-                            <CheckBox  />
+                            <CheckBox x:Name="AuthorCB" Checked="AuthorCB_Checked" Unchecked="AuthorCB_Unchecked"  />
                         </StackPanel>
                         <StackPanel Grid.Column="1" Width="50" HorizontalAlignment="Left">
                             <TextBlock Text="Genre" />
@@ -40,7 +40,7 @@
                         </StackPanel>
                         <StackPanel Grid.Column="2" >
                             <TextBlock Text="Available" />
-                            <CheckBox x:Name="availableCB" Click="availableCB_Click" />
+                            <CheckBox x:Name="availableCB" />
                         </StackPanel>
                     </Grid>
                     <Grid>
