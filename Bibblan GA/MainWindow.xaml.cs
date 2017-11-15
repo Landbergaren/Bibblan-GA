@@ -39,6 +39,17 @@ namespace Bibblan_GA
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             listView.ItemsSource = library.Where(x => x.Title.Contains(searchField.Text)).ToList();
+            searchField.Clear();
+        }
+
+        private void availableCB_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void titelCB_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
