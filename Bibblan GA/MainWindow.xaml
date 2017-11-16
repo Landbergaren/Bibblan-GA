@@ -27,20 +27,22 @@
                             <ColumnDefinition Width="2*" />
                         </Grid.ColumnDefinitions>
                         <StackPanel Width="50" HorizontalAlignment="Left">
+                            <TextBlock Text="All" FontWeight="Bold" />
+                            <CheckBox x:Name="AllCB" IsChecked="True" Checked="AllCB_Checked" Unchecked="AllCB_Unchecked"/>
                             <TextBlock Text="Title" />
-                            <CheckBox x:Name="titelCB" Click="titelCB_Click" />
-                            <TextBlock Text="Author" />
-                            <CheckBox  />
-                        </StackPanel>
+                            <CheckBox x:Name="titelCB" Unchecked="titelCB_Unchecked" Checked="titelCB_Checked" />
+                       </StackPanel>
                         <StackPanel Grid.Column="1" Width="50" HorizontalAlignment="Left">
+                            <TextBlock Text="Author" />
+                            <CheckBox x:Name="AuthorCB" Checked="AuthorCB_Checked" Unchecked="AuthorCB_Unchecked"  />
                             <TextBlock Text="Genre" />
-                            <CheckBox  />
-                            <TextBlock Text="ISBN" />
-                            <CheckBox  />
+                            <CheckBox x:Name="GenreCB" Checked="GenreCB_Checked" Unchecked="GenreCB_Unchecked" />
                         </StackPanel>
                         <StackPanel Grid.Column="2" >
-                            <TextBlock Text="Available" />
-                            <CheckBox x:Name="availableCB" Click="availableCB_Click" />
+                            <TextBlock Text="Available"  />
+                            <CheckBox x:Name="availableCB" Checked="availableCB_Checked" Unchecked="availableCB_Unchecked" />
+                            <TextBlock Text="ISBN" />
+                            <CheckBox x:Name="IsbnCB" Checked="IsbnCB_Checked" Unchecked="IsbnCB_Unchecked"  />
                         </StackPanel>
                     </Grid>
                     <Grid>
@@ -59,6 +61,7 @@
                                 <GridViewColumn Header="Genre" DisplayMemberBinding="{Binding Genre}" />
                                 <GridViewColumn Header="ISBN" DisplayMemberBinding="{Binding Isbn}" />
                                 <GridViewColumn Header="Pages" DisplayMemberBinding="{Binding Pages}" />
+                                <GridViewColumn Header="Available" DisplayMemberBinding="{Binding StringAvailability}" />
                             </GridView>
                         </ListView.View>
                     </ListView>

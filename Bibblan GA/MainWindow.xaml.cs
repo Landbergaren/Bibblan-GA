@@ -20,7 +20,8 @@ namespace Bibblan_GA
     /// </summary>
     public partial class MainWindow : Window
     {
-        List<Book> library = Library.BuildLibrary();        
+        List<Book> library = Library.BuildLibrary();
+        public event EventHandler SearchDel;
 
         public MainWindow()
         {
@@ -31,25 +32,117 @@ namespace Bibblan_GA
 
         }
 
+        #region EventHandlers
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (SearchDel != null)
+                SearchDel(this, EventArgs.Empty);
+        }
+
+        private void AllCB_Checked(object sender, RoutedEventArgs e)
+        {
+            SearchDel += AllChecked;
+        }
+
+        private void AllCB_Unchecked(object sender, RoutedEventArgs e)
+        {
+            SearchDel -= AllChecked;
+        }
+
+        private void titelCB_Checked(object sender, RoutedEventArgs e)
+        {
+            SearchDel += TitelChecked;
+        }
+
+        private void titelCB_Unchecked(object sender, RoutedEventArgs e)
+        {
+            SearchDel -= TitelChecked;
+        }
+
+        private void AuthorCB_Checked(object sender, RoutedEventArgs e)
+        {
+            SearchDel += AuthorChecked;
+        }
+
+        private void AuthorCB_Unchecked(object sender, RoutedEventArgs e)
+        {
+            SearchDel -= AuthorChecked;
+        }
+
+        private void GenreCB_Checked(object sender, RoutedEventArgs e)
+        {
+            SearchDel += GenreChecked;
+        }
+
+        private void GenreCB_Unchecked(object sender, RoutedEventArgs e)
+        {
+            SearchDel -= GenreChecked;
+        }
+
+        private void availableCB_Checked(object sender, RoutedEventArgs e)
+        {
+            SearchDel += AvailableChecked;
+        }
+
+        private void availableCB_Unchecked(object sender, RoutedEventArgs e)
+        {
+            SearchDel -= AvailableChecked;
+        }
+
+        private void IsbnCB_Checked(object sender, RoutedEventArgs e)
+        {
+            SearchDel += IsbnChecked;
+        }
+
+        private void IsbnCB_Unchecked(object sender, RoutedEventArgs e)
+        {
+            SearchDel -= IsbnChecked;
+        }
+
+        #endregion
+
+        #region Methods
+
+
         public void InitializeLibraryList()
         {
             listView.ItemsSource = library;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        public void AllChecked(object source, EventArgs args)
         {
-            listView.ItemsSource = library.Where(x => x.Title.Contains(searchField.Text)).ToList();
-            searchField.Clear();
+            listView.ItemsSource = library.Where(x => (x.Title + x.Genre + x.Isbn + x.Author).ToLower().Contains(searchField.Text.ToLower())).ToList();
         }
 
-        private void availableCB_Click(object sender, RoutedEventArgs e)
+        public void TitelChecked(object source, EventArgs args)
         {
-
+            listView.ItemsSource = library.Where(x => x.Title.ToLower().Contains(searchField.Text.ToLower())).ToList();
         }
 
-        private void titelCB_Click(object sender, RoutedEventArgs e)
+        public void AuthorChecked(object source, EventArgs args)
         {
-
+            listView.ItemsSource = library.Where(x => x.Author.ToLower().Contains(searchField.Text.ToLower())).ToList();
         }
+
+        public void GenreChecked(object source, EventArgs args)
+        {
+            listView.ItemsSource = library.Where(x => x.Genre.ToLower().Contains(searchField.Text.ToLower())).ToList();
+        }
+
+        public void AvailableChecked(object source, EventArgs args)
+        {
+            listView.ItemsSource = library.Where(x => x.Availability).ToList();
+        }
+
+        public void IsbnChecked(object source, EventArgs args)
+        {
+            listView.ItemsSource = library.Where(x => x.Isbn.ToString().Contains(searchField.Text)).ToList();
+        }
+
+        #endregion
+
+
     }
 }

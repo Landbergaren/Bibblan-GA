@@ -27,8 +27,10 @@ namespace Bibblan_GA
         public string Type { get => type; set => type = value; }
         public int TotalBooks { get => totalBooks; set => totalBooks = value; }
         public int Pages { get => pages; set => pages = value; }
+        public string StringAvailability { get { if (availability == true) return "Yes"; else return "No"; } }
 
-        public Book(string inTitle, string inAuthor, string ingenre, int intotalBooks, int inPages)
+
+        public Book(string inTitle, string inAuthor, string ingenre, int intotalBooks, int inPages, bool availability)
         {
             isbnCounter++;
 
@@ -38,7 +40,7 @@ namespace Bibblan_GA
             Genre = ingenre;
             Isbn = isbnCounter;
             TotalBooks = intotalBooks;
-            Availability = true;
+            Availability = availability;
         }
     }
 }
