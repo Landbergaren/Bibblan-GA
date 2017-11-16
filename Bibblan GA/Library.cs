@@ -33,9 +33,15 @@ namespace Bibblan_GA
             Books.Add(new Book("Dreams from My Father", "Barack Obama", "Biography", 3, 250, false));
             Books.Add(new Book("Finding My Virginity", "Richard Branson", "Biography", 3, 250, true));
 
-
-
             return Books;
+        }
+
+        public static List<Account> BuildMemberList()
+        {
+            List<Account> Members = new List<Account>();
+            Members.Add(new Adult("Steve Jobs", "666-666", 50, true));
+
+            return Members;
         }
     }
 }

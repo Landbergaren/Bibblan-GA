@@ -21,6 +21,7 @@ namespace Bibblan_GA
     public partial class MainWindow : Window
     {
         List<Book> library = Library.BuildLibrary();
+        //List<Book> tempLibrary = new List<Book>();
         public event EventHandler SearchDel;
 
         public MainWindow()
@@ -36,7 +37,7 @@ namespace Bibblan_GA
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            listView.Items.Clear();
             if (SearchDel != null)
                 SearchDel(this, EventArgs.Empty);
         }
@@ -105,40 +106,82 @@ namespace Bibblan_GA
 
         #region Methods
 
-
         public void InitializeLibraryList()
         {
-            listView.ItemsSource = library;
+            foreach (var books in library)
+                listView.Items.Add(books);
         }
 
         public void AllChecked(object source, EventArgs args)
         {
-            listView.ItemsSource = library.Where(x => (x.Title + x.Genre + x.Isbn + x.Author).ToLower().Contains(searchField.Text.ToLower())).ToList();
+           var temp = library.Where(x => (x.Title + x.Genre + x.Isbn + x.Author).ToLower().Contains(searchField.Text.ToLower()));
+            foreach (var item in temp)
+            {
+                if (!listView.Items.Contains(item))
+                    listView.Items.Add(item);
+            }
         }
 
         public void TitelChecked(object source, EventArgs args)
         {
-            listView.ItemsSource = library.Where(x => x.Title.ToLower().Contains(searchField.Text.ToLower())).ToList();
+            var temp = library.Where(x => x.Title.ToLower().Contains(searchField.Text.ToLower()));
+            foreach (var item in temp)
+            {
+                if (!listView.Items.Contains(item))
+                    listView.Items.Add(item);
+            }
         }
 
         public void AuthorChecked(object source, EventArgs args)
         {
-            listView.ItemsSource = library.Where(x => x.Author.ToLower().Contains(searchField.Text.ToLower())).ToList();
+            var temp = library.Where(x => x.Author.ToLower().Contains(searchField.Text.ToLower()));
+            foreach (var item in temp)
+            {
+                if (!listView.Items.Contains(item))
+                    listView.Items.Add(item);
+            }
         }
 
         public void GenreChecked(object source, EventArgs args)
         {
-            listView.ItemsSource = library.Where(x => x.Genre.ToLower().Contains(searchField.Text.ToLower())).ToList();
+            var temp = library.Where(x => x.Genre.ToLower().Contains(searchField.Text.ToLower()));
+            foreach (var item in temp)
+            {
+                if (!listView.Items.Contains(item))
+                    listView.Items.Add(item);
+            }
         }
 
         public void AvailableChecked(object source, EventArgs args)
         {
-            listView.ItemsSource = library.Where(x => x.Availability).ToList();
+            var temp = library.Where(x => x.Availability);
+            foreach (var item in temp)
+            {
+                if (!listView.Items.Contains(item))
+                    listView.Items.Add(item);
+            }
+
         }
+
+        //public List<Book> Avail(List<Book> test)
+        //{
+        //    var temp = library.Where(x => x.Availability);
+        //    foreach (var item in temp)
+        //    {
+        //        if (!listView.Items.Contains(item))
+        //            listView.Items.Add(item);
+        //    }
+        //}
 
         public void IsbnChecked(object source, EventArgs args)
         {
-            listView.ItemsSource = library.Where(x => x.Isbn.ToString().Contains(searchField.Text)).ToList();
+            var temp = library.Where(x => x.Isbn.Equals(searchField.Text.ToLower()));
+            foreach (var item in temp)
+            {
+                if (!listView.Items.Contains(item))
+                    listView.Items.Add(item);
+            }
+            // listView.ItemsSource = library.Where(x => x.Isbn.ToString().Contains(searchField.Text)).ToList();
         }
 
         #endregion
