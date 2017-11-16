@@ -27,8 +27,13 @@ namespace Bibblan_GA
     {
         bool vip;
 
-        public Adult(string name, string phonenumber, int age) : base(name, phonenumber, age)
+        public Adult(string name, string phonenumber, int age, bool vip) : base(name, phonenumber, age)
         {
+        }
+
+        public override void Rent()
+        {
+            
         }
 
 
@@ -38,7 +43,7 @@ namespace Bibblan_GA
     {
         string parent;
 
-        public Minor(string name, string phonenumber, int age) : base(name, phonenumber, age)
+        public Minor(string name, string phonenumber, int age, string parent) : base(name, phonenumber, age)
         {
         }
     }
