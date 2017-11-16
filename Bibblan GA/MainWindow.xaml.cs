@@ -27,16 +27,17 @@ namespace Bibblan_GA
         {
             InitializeComponent();
             InitializeLibraryList();
-
+            
             //library = library.OrderBy(x => x.Author).ToList(); <-- Orders lists with a lambda. 
-
         }
+
+
 
         #region EventHandlers
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+                        
             if (SearchDel != null)
                 SearchDel(this, EventArgs.Empty);
         }
@@ -133,7 +134,7 @@ namespace Bibblan_GA
 
         public void AvailableChecked(object source, EventArgs args)
         {
-            listView.ItemsSource = library.Where(x => x.Availability).ToList();
+ 
         }
 
         public void IsbnChecked(object source, EventArgs args)
