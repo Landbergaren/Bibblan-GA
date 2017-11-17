@@ -31,10 +31,11 @@ namespace Bibblan_GA
         {
             InitializeComponent();
             InitializeLibraryList();
-
+            
             //library = library.OrderBy(x => x.Author).ToList(); <-- Orders lists with a lambda. 
-
         }
+
+
 
         #region EventHandlers
 
