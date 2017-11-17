@@ -62,6 +62,7 @@
                                 <GridViewColumn Header="ISBN" DisplayMemberBinding="{Binding Isbn}" />
                                 <GridViewColumn Header="Pages" DisplayMemberBinding="{Binding Pages}" />
                                 <GridViewColumn Header="Available" DisplayMemberBinding="{Binding StringAvailability}" />
+                                
                             </GridView>
                         </ListView.View>
                     </ListView>

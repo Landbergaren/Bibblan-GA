@@ -20,9 +20,12 @@ namespace Bibblan_GA
     /// </summary>
     public partial class MainWindow : Window
     {
+        
         List<Book> library = Library.BuildLibrary();
         //List<Book> tempLibrary = new List<Book>();
         public event EventHandler SearchDel;
+
+        public bool availabilityChecked = false;
 
         public MainWindow()
         {
@@ -38,6 +41,7 @@ namespace Bibblan_GA
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             listView.Items.Clear();
+            
             if (SearchDel != null)
                 SearchDel(this, EventArgs.Empty);
         }
@@ -85,11 +89,13 @@ namespace Bibblan_GA
         private void availableCB_Checked(object sender, RoutedEventArgs e)
         {
             SearchDel += AvailableChecked;
+            availabilityChecked = true;
         }
 
         private void availableCB_Unchecked(object sender, RoutedEventArgs e)
         {
             SearchDel -= AvailableChecked;
+            availabilityChecked = false;
         }
 
         private void IsbnCB_Checked(object sender, RoutedEventArgs e)
@@ -117,8 +123,14 @@ namespace Bibblan_GA
            var temp = library.Where(x => (x.Title + x.Genre + x.Isbn + x.Author).ToLower().Contains(searchField.Text.ToLower()));
             foreach (var item in temp)
             {
-                if (!listView.Items.Contains(item))
-                    listView.Items.Add(item);
+                if (availabilityChecked == false)
+                    if (!listView.Items.Contains(item))
+                        listView.Items.Add(item);
+
+                    if (availabilityChecked == true && item.Availability == true)
+                        if (!listView.Items.Contains(item))
+                            listView.Items.Add(item);
+
             }
         }
 
@@ -127,8 +139,13 @@ namespace Bibblan_GA
             var temp = library.Where(x => x.Title.ToLower().Contains(searchField.Text.ToLower()));
             foreach (var item in temp)
             {
-                if (!listView.Items.Contains(item))
-                    listView.Items.Add(item);
+                if(availabilityChecked==false)
+                    if (!listView.Items.Contains(item))
+                        listView.Items.Add(item);
+
+                    if(availabilityChecked==true && item.Availability == true)
+                        if (!listView.Items.Contains(item))
+                            listView.Items.Add(item);
             }
         }
 
@@ -137,8 +154,13 @@ namespace Bibblan_GA
             var temp = library.Where(x => x.Author.ToLower().Contains(searchField.Text.ToLower()));
             foreach (var item in temp)
             {
-                if (!listView.Items.Contains(item))
-                    listView.Items.Add(item);
+                if (availabilityChecked == false)
+                    if (!listView.Items.Contains(item))
+                        listView.Items.Add(item);
+
+                    if (availabilityChecked == true && item.Availability == true)
+                        if (!listView.Items.Contains(item))
+                            listView.Items.Add(item);
             }
         }
 
@@ -147,21 +169,37 @@ namespace Bibblan_GA
             var temp = library.Where(x => x.Genre.ToLower().Contains(searchField.Text.ToLower()));
             foreach (var item in temp)
             {
-                if (!listView.Items.Contains(item))
-                    listView.Items.Add(item);
+                if (availabilityChecked == false)
+                    if (!listView.Items.Contains(item))
+                        listView.Items.Add(item);
+
+                    if (availabilityChecked == true && item.Availability == true)
+                        if (!listView.Items.Contains(item))
+                            listView.Items.Add(item);
             }
         }
 
         public void AvailableChecked(object source, EventArgs args)
         {
-            var temp = library.Where(x => x.Availability);
+            var temp = library.Where(x => x.Availability.ToString().Contains(searchField.Text.ToLower()));
             foreach (var item in temp)
             {
                 if (!listView.Items.Contains(item))
-                    listView.Items.Add(item);
+                {
+                    if(availabilityChecked == false)
+                       if (!listView.Items.Contains(item))
+                        listView.Items.Add(item);
+
+                    if (availabilityChecked == true && item.Availability == true)
+                        if (!listView.Items.Contains(item))
+                            listView.Items.Add(item);
+                }
+                
             }
 
         }
+               
+        
 
         //public List<Book> Avail(List<Book> test)
         //{
@@ -178,8 +216,13 @@ namespace Bibblan_GA
             var temp = library.Where(x => x.Isbn.Equals(searchField.Text.ToLower()));
             foreach (var item in temp)
             {
-                if (!listView.Items.Contains(item))
-                    listView.Items.Add(item);
+                if (availabilityChecked == false)
+                    if (!listView.Items.Contains(item))
+                        listView.Items.Add(item);
+
+                if (availabilityChecked == true && item.Availability == true)
+                    if (!listView.Items.Contains(item))
+                        listView.Items.Add(item);
             }
             // listView.ItemsSource = library.Where(x => x.Isbn.ToString().Contains(searchField.Text)).ToList();
         }
