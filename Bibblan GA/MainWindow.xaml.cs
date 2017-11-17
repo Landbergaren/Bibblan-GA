@@ -89,13 +89,12 @@ namespace Bibblan_GA
 
         private void availableCB_Checked(object sender, RoutedEventArgs e)
         {
-            SearchDel += AvailableChecked;
             availabilityChecked = true;
         }
 
         private void availableCB_Unchecked(object sender, RoutedEventArgs e)
         {
-            SearchDel -= AvailableChecked;
+
             availabilityChecked = false;
         }
 
@@ -131,7 +130,6 @@ namespace Bibblan_GA
                     if (availabilityChecked == true && item.Availability == true)
                         if (!listView.Items.Contains(item))
                             listView.Items.Add(item);
-
             }
         }
 
@@ -194,27 +192,13 @@ namespace Bibblan_GA
                     if (availabilityChecked == true && item.Availability == true)
                         if (!listView.Items.Contains(item))
                             listView.Items.Add(item);
-                }
-                
+                }                
             }
-
-        }
-               
-        
-
-        //public List<Book> Avail(List<Book> test)
-        //{
-        //    var temp = library.Where(x => x.Availability);
-        //    foreach (var item in temp)
-        //    {
-        //        if (!listView.Items.Contains(item))
-        //            listView.Items.Add(item);
-        //    }
-        //}
+        }              
 
         public void IsbnChecked(object source, EventArgs args)
         {
-            var temp = library.Where(x => x.Isbn.Equals(searchField.Text.ToLower()));
+            var temp = library.Where(x => x.Isbn.ToString().Contains(searchField.Text));
             foreach (var item in temp)
             {
                 if (availabilityChecked == false)
@@ -229,7 +213,6 @@ namespace Bibblan_GA
         }
 
         #endregion
-
-
+        
     }
 }
