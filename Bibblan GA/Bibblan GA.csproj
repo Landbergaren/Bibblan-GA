@@ -55,7 +55,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Account.cs" />
+    <Compile Include="BookWindow.xaml.cs">
+      <DependentUpon>BookWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Library.cs" />
+    <Page Include="BookWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

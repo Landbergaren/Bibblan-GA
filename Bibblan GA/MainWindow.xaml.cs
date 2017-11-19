@@ -21,13 +21,14 @@ namespace Bibblan_GA
     public partial class MainWindow : Window
     {
         List<Book> library = Library.BuildLibrary();
+        List<Book> tempLibrary;
         public event EventHandler SearchDel;
 
         public MainWindow()
         {
             InitializeComponent();
             InitializeLibraryList();
-
+            
             //library = library.OrderBy(x => x.Author).ToList(); <-- Orders lists with a lambda. 
 
         }
@@ -36,9 +37,14 @@ namespace Bibblan_GA
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
             if (SearchDel != null)
                 SearchDel(this, EventArgs.Empty);
+
+            if (tempLibrary != null)
+                listView.ItemsSource = tempLibrary;
+
+            tempLibrary = library;
+            
         }
 
         private void AllCB_Checked(object sender, RoutedEventArgs e)
@@ -100,7 +106,6 @@ namespace Bibblan_GA
         {
             SearchDel -= IsbnChecked;
         }
-
         #endregion
 
         #region Methods
@@ -113,36 +118,38 @@ namespace Bibblan_GA
 
         public void AllChecked(object source, EventArgs args)
         {
-            listView.ItemsSource = library.Where(x => (x.Title + x.Genre + x.Isbn + x.Author).Contains(searchField.Text)).ToList();
+            tempLibrary = library.Where(x => (x.Title + x.Genre + x.Isbn + x.Author).Contains(searchField.Text)).ToList();
+
         }
 
         public void TitelChecked(object source, EventArgs args)
         {
-            listView.ItemsSource = library.Where(x => x.Title.Contains(searchField.Text)).ToList();
+            tempLibrary = library.Where(x => x.Title.Contains(searchField.Text)).ToList();
         }
 
         public void AuthorChecked(object source, EventArgs args)
         {
-            listView.ItemsSource = library.Where(x => x.Author.Contains(searchField.Text)).ToList();
+            tempLibrary = library.Where(x => x.Author.Contains(searchField.Text)).ToList();
         }
 
         public void GenreChecked(object source, EventArgs args)
         {
-            listView.ItemsSource = library.Where(x => x.Genre.Contains(searchField.Text)).ToList();
+
+            tempLibrary = library.Where(x => x.Genre.Contains(searchField.Text)).ToList();
         }
 
         public void AvailableChecked(object source, EventArgs args)
         {
-            listView.ItemsSource = library.Where(x => x.Availability).ToList();
+
+            tempLibrary = library.Where(x => x.Availability).ToList();
         }
 
         public void IsbnChecked(object source, EventArgs args)
         {
-            listView.ItemsSource = library.Where(x => x.Isbn.ToString().Contains(searchField.Text)).ToList();
+
+            tempLibrary = library.Where(x => x.Isbn.ToString().Contains(searchField.Text)).ToList();
+
         }
-
         #endregion
-
-
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bibblan_GA"
         mc:Ignorable="d"
-        Title="Bibblan" WindowStartupLocation="CenterScreen" Width="1000" Height="613.347">
+        Title="Bibblan" WindowStartupLocation="CenterScreen" Width="1000" Height="600">
     <Border Padding="20 10 20 10">
         <StackPanel>
             <TextBlock FontSize="30" HorizontalAlignment="center" Margin="0 0 0 40">BIBBLAN.SE</TextBlock>
@@ -52,7 +52,7 @@
                     </Grid>
                 </StackPanel>
 
-                <StackPanel Grid.Column="1" Grid.Row="0">
+                <StackPanel Grid.Column="1" Grid.Row="0" >
                     <ListView x:Name="listView" Height="400">
                         <ListView.View>
                             <GridView >
