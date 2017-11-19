@@ -31,7 +31,7 @@
                             <CheckBox x:Name="AllCB" IsChecked="True" Checked="AllCB_Checked" Unchecked="AllCB_Unchecked"/>
                             <TextBlock Text="Title" />
                             <CheckBox x:Name="titelCB" Unchecked="titelCB_Unchecked" Checked="titelCB_Checked" />
-                       </StackPanel>
+                        </StackPanel>
                         <StackPanel Grid.Column="1" Width="50" HorizontalAlignment="Left">
                             <TextBlock Text="Author" />
                             <CheckBox x:Name="AuthorCB" Checked="AuthorCB_Checked" Unchecked="AuthorCB_Unchecked"  />
@@ -62,7 +62,7 @@
                                 <GridViewColumn Header="ISBN" DisplayMemberBinding="{Binding Isbn}" />
                                 <GridViewColumn Header="Pages" DisplayMemberBinding="{Binding Pages}" />
                                 <GridViewColumn Header="Available" DisplayMemberBinding="{Binding StringAvailability}" />
-                                
+
                             </GridView>
                         </ListView.View>
                     </ListView>
