@@ -20,9 +20,12 @@ namespace Bibblan_GA
     /// </summary>
     public partial class MainWindow : Window
     {
+        
         List<Book> library = Library.BuildLibrary();
-        List<Book> tempLibrary;
+        //List<Book> tempLibrary = new List<Book>();
         public event EventHandler SearchDel;
+
+        public bool availabilityChecked = false;
 
         public MainWindow()
         {
@@ -30,21 +33,18 @@ namespace Bibblan_GA
             InitializeLibraryList();
             
             //library = library.OrderBy(x => x.Author).ToList(); <-- Orders lists with a lambda. 
-
         }
+
+
 
         #region EventHandlers
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            listView.Items.Clear();
+            
             if (SearchDel != null)
                 SearchDel(this, EventArgs.Empty);
-
-            if (tempLibrary != null)
-                listView.ItemsSource = tempLibrary;
-
-            tempLibrary = library;
-            
         }
 
         private void AllCB_Checked(object sender, RoutedEventArgs e)
@@ -89,12 +89,13 @@ namespace Bibblan_GA
 
         private void availableCB_Checked(object sender, RoutedEventArgs e)
         {
-            SearchDel += AvailableChecked;
+            availabilityChecked = true;
         }
 
         private void availableCB_Unchecked(object sender, RoutedEventArgs e)
         {
-            SearchDel -= AvailableChecked;
+
+            availabilityChecked = false;
         }
 
         private void IsbnCB_Checked(object sender, RoutedEventArgs e)
@@ -106,50 +107,112 @@ namespace Bibblan_GA
         {
             SearchDel -= IsbnChecked;
         }
+
         #endregion
 
         #region Methods
 
-
         public void InitializeLibraryList()
         {
-            listView.ItemsSource = library;
+            foreach (var books in library)
+                listView.Items.Add(books);
         }
 
         public void AllChecked(object source, EventArgs args)
         {
-            tempLibrary = library.Where(x => (x.Title + x.Genre + x.Isbn + x.Author).Contains(searchField.Text)).ToList();
+           var temp = library.Where(x => (x.Title + x.Genre + x.Isbn + x.Author).ToLower().Contains(searchField.Text.ToLower()));
+            foreach (var item in temp)
+            {
+                if (availabilityChecked == false)
+                    if (!listView.Items.Contains(item))
+                        listView.Items.Add(item);
 
+                    if (availabilityChecked == true && item.Availability == true)
+                        if (!listView.Items.Contains(item))
+                            listView.Items.Add(item);
+            }
         }
 
         public void TitelChecked(object source, EventArgs args)
         {
-            tempLibrary = library.Where(x => x.Title.Contains(searchField.Text)).ToList();
+            var temp = library.Where(x => x.Title.ToLower().Contains(searchField.Text.ToLower()));
+            foreach (var item in temp)
+            {
+                if(availabilityChecked==false)
+                    if (!listView.Items.Contains(item))
+                        listView.Items.Add(item);
+
+                    if(availabilityChecked==true && item.Availability == true)
+                        if (!listView.Items.Contains(item))
+                            listView.Items.Add(item);
+            }
         }
 
         public void AuthorChecked(object source, EventArgs args)
         {
-            tempLibrary = library.Where(x => x.Author.Contains(searchField.Text)).ToList();
+            var temp = library.Where(x => x.Author.ToLower().Contains(searchField.Text.ToLower()));
+            foreach (var item in temp)
+            {
+                if (availabilityChecked == false)
+                    if (!listView.Items.Contains(item))
+                        listView.Items.Add(item);
+
+                    if (availabilityChecked == true && item.Availability == true)
+                        if (!listView.Items.Contains(item))
+                            listView.Items.Add(item);
+            }
         }
 
         public void GenreChecked(object source, EventArgs args)
         {
+            var temp = library.Where(x => x.Genre.ToLower().Contains(searchField.Text.ToLower()));
+            foreach (var item in temp)
+            {
+                if (availabilityChecked == false)
+                    if (!listView.Items.Contains(item))
+                        listView.Items.Add(item);
 
-            tempLibrary = library.Where(x => x.Genre.Contains(searchField.Text)).ToList();
+                    if (availabilityChecked == true && item.Availability == true)
+                        if (!listView.Items.Contains(item))
+                            listView.Items.Add(item);
+            }
         }
 
         public void AvailableChecked(object source, EventArgs args)
         {
+            var temp = library.Where(x => x.Availability.ToString().Contains(searchField.Text.ToLower()));
+            foreach (var item in temp)
+            {
+                if (!listView.Items.Contains(item))
+                {
+                    if(availabilityChecked == false)
+                       if (!listView.Items.Contains(item))
+                        listView.Items.Add(item);
 
-            tempLibrary = library.Where(x => x.Availability).ToList();
-        }
+                    if (availabilityChecked == true && item.Availability == true)
+                        if (!listView.Items.Contains(item))
+                            listView.Items.Add(item);
+                }                
+            }
+        }              
 
         public void IsbnChecked(object source, EventArgs args)
         {
+            var temp = library.Where(x => x.Isbn.ToString().Contains(searchField.Text));
+            foreach (var item in temp)
+            {
+                if (availabilityChecked == false)
+                    if (!listView.Items.Contains(item))
+                        listView.Items.Add(item);
 
-            tempLibrary = library.Where(x => x.Isbn.ToString().Contains(searchField.Text)).ToList();
-
+                if (availabilityChecked == true && item.Availability == true)
+                    if (!listView.Items.Contains(item))
+                        listView.Items.Add(item);
+            }
+            // listView.ItemsSource = library.Where(x => x.Isbn.ToString().Contains(searchField.Text)).ToList();
         }
+
         #endregion
+        
     }
 }
