@@ -40,7 +40,7 @@
                 </Grid.ColumnDefinitions>
                 <Border Padding="20" BorderThickness="2px" BorderBrush="Black">
                     <Grid Height="260" Grid.Column="0">
-                        <TextBlock x:Name="bookInfoTB" Text="some info about the book"/>
+                        <TextBlock x:Name="bookInfoTB" TextWrapping="Wrap" Text="some info about the book"/>
                     </Grid>
                 </Border>
                 <Border Padding="20" Grid.Column="1">

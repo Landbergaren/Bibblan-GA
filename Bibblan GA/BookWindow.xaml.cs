@@ -37,7 +37,9 @@ namespace Bibblan_GA
             bookTitelTB.Text = MainWindow.SelectedBook.Title;
             authorTB.Text = MainWindow.SelectedBook.Author;
             genreTB.Text = MainWindow.SelectedBook.Genre;
-            
+            bookInfoTB.Text = MainWindow.SelectedBook.BookInfo;
+
+
         }
 
         private void backBtn_Click(object sender, RoutedEventArgs e)
