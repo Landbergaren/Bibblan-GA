@@ -34,7 +34,7 @@ namespace Bibblan_GA
             await Task.Delay(100);
 
             bookAvailableTB.Text +=  ": " + MainWindow.SelectedBook.StringAvailability;
-            bookTitelTB.Text = MainWindow.SelectedBook.Author;
+            bookTitelTB.Text = MainWindow.SelectedBook.Title;
             authorTB.Text = MainWindow.SelectedBook.Author;
             genreTB.Text = MainWindow.SelectedBook.Genre;
             
