@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bibblan_GA
 {
-    class Book
+    public class Book
     {
         private string title;
         private string author;

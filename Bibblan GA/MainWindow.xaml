@@ -53,7 +53,8 @@
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" Grid.Row="0" >
-                    <ListView x:Name="listView" Height="400">
+                    
+                    <ListView x:Name="listView" Height="400" MouseDoubleClick="listView_MouseDoubleClick">
                         <ListView.View>
                             <GridView >
                                 <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}" />
@@ -64,6 +65,7 @@
                                 <GridViewColumn Header="Available" DisplayMemberBinding="{Binding StringAvailability}" />
 
                             </GridView>
+
                         </ListView.View>
                     </ListView>
                 </StackPanel>

@@ -20,9 +20,10 @@ namespace Bibblan_GA
     /// </summary>
     public partial class MainWindow : Window
     {
-        
+        public static Book SelectedBook { get; set; }
         List<Book> library = Library.BuildLibrary();
         public event EventHandler SearchDel;
+
 
         public bool availabilityChecked = false;
 
@@ -107,6 +108,16 @@ namespace Bibblan_GA
             SearchDel -= IsbnChecked;
         }
 
+         private void listView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            BookWindow bookWin = new BookWindow();
+            SelectedBook = (Book)listView.SelectedValue;
+
+
+            bookWin.Show();
+            this.Close();
+        }
+
         #endregion
 
         #region Methods
@@ -181,5 +192,7 @@ namespace Bibblan_GA
 
         #endregion
 
+
     }
+
 }
