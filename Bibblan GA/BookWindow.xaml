@@ -39,7 +39,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Border Padding="20" BorderThickness="2px" BorderBrush="Black">
-                    <Grid Height="270" Grid.Column="0">
+                    <Grid Height="260" Grid.Column="0">
                         <TextBlock x:Name="bookInfoTB" Text="some info about the book"/>
                     </Grid>
                 </Border>
