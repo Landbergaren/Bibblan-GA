@@ -1,29 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Bibblan_GA
 {
-    
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        
-        List<Book> library = Library.BuildLibrary();
-        List<Account> memberList = Library.BuildMemberList();
+        public static Book SelectedBook { get; set; }
+        private List<Book> library = Library.BuildLibrary();
+        private List<Account> memberList = Library.BuildMemberList();
+
         public event EventHandler SearchDel;
 
         public bool availabilityChecked = false;
@@ -32,8 +23,8 @@ namespace Bibblan_GA
         {
             InitializeComponent();
             InitializeLibraryList();
-            
-            //library = library.OrderBy(x => x.Author).ToList(); <-- Orders lists with a lambda. 
+
+            //library = library.OrderBy(x => x.Author).ToList(); <-- Orders lists with a lambda.
         }
 
         public bool LogIn()
@@ -43,7 +34,6 @@ namespace Bibblan_GA
 
             foreach (var members in list)
             {
-
                 if (members.Username == UsernameField.Text && members.Password == PasswordField.Text)
                 {
                     match = true;
@@ -54,9 +44,9 @@ namespace Bibblan_GA
                     PasswordField.IsReadOnly = true;
                 }
             }
-            
+
             if (match == false)
-            MessageBox.Show("Error");
+                MessageBox.Show("Error");
 
             return match;
         }
@@ -71,9 +61,8 @@ namespace Bibblan_GA
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             listView.Items.Clear();
-            
-            if (SearchDel != null)
-                SearchDel(this, EventArgs.Empty);
+
+            OnClick();
         }
 
         private void AllCB_Checked(object sender, RoutedEventArgs e)
@@ -123,7 +112,6 @@ namespace Bibblan_GA
 
         private void availableCB_Unchecked(object sender, RoutedEventArgs e)
         {
-
             availabilityChecked = false;
         }
 
@@ -137,7 +125,7 @@ namespace Bibblan_GA
             SearchDel -= IsbnChecked;
         }
 
-        #endregion
+        #endregion EventHandlers
 
         #region Methods
 
@@ -178,16 +166,16 @@ namespace Bibblan_GA
             {
                 if (!listView.Items.Contains(item))
                 {
-                    if(availabilityChecked == false)
-                       if (!listView.Items.Contains(item))
-                        listView.Items.Add(item);
+                    if (availabilityChecked == false)
+                        if (!listView.Items.Contains(item))
+                            listView.Items.Add(item);
 
                     if (availabilityChecked == true && item.Availability == true)
                         if (!listView.Items.Contains(item))
                             listView.Items.Add(item);
-                }                
+                }
             }
-        }              
+        }
 
         public void IsbnChecked(object source, EventArgs args)
         {
@@ -209,7 +197,16 @@ namespace Bibblan_GA
             }
         }
 
-        private void OnClick ()
+        private void listView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            BookWindow bookWin = new BookWindow();
+            SelectedBook = (Book)listView.SelectedValue;
+
+            bookWin.Show();
+            this.Close();
+        }
+
+        private void OnClick()
         {
             {
                 if (SearchDel != null)
@@ -223,6 +220,6 @@ namespace Bibblan_GA
                 AgeCB.IsEnabled = true;
         }
 
-        #endregion
+        #endregion Methods
     }
 }

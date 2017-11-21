@@ -51,7 +51,7 @@ namespace Bibblan_GA
 
         public override void Rent(bool available)
         {
-            
+
         }
 
 
@@ -63,6 +63,11 @@ namespace Bibblan_GA
 
         public Minor(string name, string phonenumber, int age, string parent, string username, string password) : base(name, phonenumber, age, username, password)
         {
+            Name = name;
+            Phonenumber = phonenumber;
+            Age = age;
+            Username = username;
+            Password = password;
         }
     }
 
@@ -70,12 +75,6 @@ namespace Bibblan_GA
     {
         public Worker(string name, string phonenumber, int age, string username, string password) : base(name, phonenumber, age, username, password)
         {
-        }
-
-        public Book AddBook(string title, string author, string genre, int totalBooks, int pages, bool available)
-        {
-          Book NewBook = new Book(title, author, genre, totalBooks, pages, available);
-            return NewBook;
         }
     }
 }
