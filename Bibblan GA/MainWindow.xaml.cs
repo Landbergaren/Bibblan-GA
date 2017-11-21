@@ -21,10 +21,10 @@ namespace Bibblan_GA
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static Book SelectedBook { get; set; }
+        
         List<Book> library = Library.BuildLibrary();
+        List<Account> memberList = Library.BuildMemberList();
         public event EventHandler SearchDel;
-
 
         public bool availabilityChecked = false;
 
@@ -36,15 +36,42 @@ namespace Bibblan_GA
             //library = library.OrderBy(x => x.Author).ToList(); <-- Orders lists with a lambda. 
         }
 
+        public bool LogIn()
+        {
+            bool match = false;
+            List<Account> list = Library.BuildMemberList();
 
+            foreach (var members in list)
+            {
+
+                if (members.Username == UsernameField.Text && members.Password == PasswordField.Text)
+                {
+                    match = true;
+                    CheckAge(members.Age);
+                    MessageBox.Show("Successfully logged in");
+                    LogInButton.IsEnabled = false;
+                    UsernameField.IsReadOnly = true;
+                    PasswordField.IsReadOnly = true;
+                }
+            }
+            
+            if (match == false)
+            MessageBox.Show("Error");
+
+            return match;
+        }
 
         #region EventHandlers
+
+        private void LogInButton_Click(object sender, RoutedEventArgs e)
+        {
+            LogIn();
+        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             listView.Items.Clear();
             
-            // lägg publisher i en OnClick metod.. (protected virutal)
             if (SearchDel != null)
                 SearchDel(this, EventArgs.Empty);
         }
@@ -108,16 +135,6 @@ namespace Bibblan_GA
         private void IsbnCB_Unchecked(object sender, RoutedEventArgs e)
         {
             SearchDel -= IsbnChecked;
-        }
-
-         private void listView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            BookWindow bookWin = new BookWindow();
-            SelectedBook = (Book)listView.SelectedValue;
-
-
-            bookWin.Show();
-            this.Close();
         }
 
         #endregion
@@ -192,9 +209,20 @@ namespace Bibblan_GA
             }
         }
 
+        private void OnClick ()
+        {
+            {
+                if (SearchDel != null)
+                    SearchDel(this, EventArgs.Empty);
+            }
+        }
+
+        private void CheckAge(int age)
+        {
+            if (age >= 18)
+                AgeCB.IsEnabled = true;
+        }
+
         #endregion
-
-
     }
-
 }
