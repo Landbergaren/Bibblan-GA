@@ -39,9 +39,23 @@ namespace Bibblan_GA
         public static List<Account> BuildMemberList()
         {
             List<Account> Members = new List<Account>();
-            Members.Add(new Adult("Steve Jobs", "666-666", 50, true));
+            Members.Add(new Adult("Steve Jobs", "666-666", 50, true, "Apple", "Apple"));
+            Members.Add(new Adult("Steve Jobs", "666-666", 50, true, "Banana", "Banana"));
+            Members.Add(new Adult("Steve Jobs", "666-666", 50, true, "Peach", "Peach"));
+            Members.Add(new Minor("Steve Jobs", "666-666", 5, "true", "Broccoli", "Broccoli"));
+            Members.Add(new Minor("Steve Jobs", "666-666", 12, "true", "Potato", "Potato"));
+            Members.Add(new Minor("Steve Jobs", "666-666", 10, "true", "Onion", "Onion"));
 
             return Members;
+        }
+
+        public void Rent ( Book selectedBook )
+        {
+            // SelectedBookInListview -> search for element in library -> Select Element in library and insert in Rent parameter
+
+            selectedBook.TotalBooks--;
+            if (selectedBook.TotalBooks == 0)
+                selectedBook.Availability = false;
         }
     }
 }
