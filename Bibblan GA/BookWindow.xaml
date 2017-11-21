@@ -10,26 +10,26 @@
     <Border Padding="20">
 
         <StackPanel>
-            <TextBlock Text="Book titel" HorizontalAlignment="Center" FontSize="40" FontWeight="Bold" Margin="10" />
+            <TextBlock x:Name="bookTitelTB" Text="Book titel" HorizontalAlignment="Center" FontSize="40" FontWeight="Bold" Margin="10" />
 
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
+                    <ColumnDefinition Width="auto"/>
                     <ColumnDefinition/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2*"/>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Margin="0 70 0 0">
-                    <TextBlock Text="some text" Margin="10"/>
-                    <TextBlock Text="some text" Margin="10"/>
+                    <TextBlock Text="Author:" Margin="10"/>
+                    <TextBlock Text="Genre: " Margin="10"/>
                 </StackPanel>
                 <StackPanel Grid.Column="1" Margin="0 70 0 0">
-                    <TextBlock Text="some text" Margin="10" />
-                    <TextBlock Text="some text" Margin="10"/>
+                    <TextBlock x:Name="authorTB" Text="some text" Margin="10" />
+                    <TextBlock x:Name="genreTB" Text="some text" Margin="10"/>
                 </StackPanel>
                 <Grid Grid.Column="2" Margin="0 70 0 0">
-                    <TextBlock Text="Available" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" />
+                    <TextBlock x:Name="bookAvailableTB" Text="Available" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" />
                 </Grid>
             </Grid>
             <Grid>
@@ -39,13 +39,13 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Border Padding="20" BorderThickness="2px" BorderBrush="Black">
-                    <Grid Height="270" Grid.Column="0">
-                        <TextBlock Text="some info about the book"/>
+                    <Grid Height="260" Grid.Column="0">
+                        <TextBlock x:Name="bookInfoTB" TextWrapping="Wrap" Text="some info about the book"/>
                     </Grid>
                 </Border>
                 <Border Padding="20" Grid.Column="1">
                     <Grid >
-                        <Button Content="Back" Padding="5" Height="30" VerticalAlignment="Top" />
+                        <Button x:Name="backBtn" Content="Back" Padding="5" Height="30" VerticalAlignment="Top" Click="backBtn_Click" />
                         <Button Content="Book" Height="30" VerticalAlignment="Bottom"/>
                     </Grid>
                 </Border>

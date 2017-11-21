@@ -19,9 +19,35 @@ namespace Bibblan_GA
     /// </summary>
     public partial class BookWindow : Window
     {
+        MainWindow mainWin = new MainWindow();
+
         public BookWindow()
         {
             InitializeComponent();
+            
+            InitializeStringsToFrames();
+
+        }
+
+        async public void InitializeStringsToFrames()
+        {
+            await Task.Delay(100);
+
+            bookAvailableTB.Text +=  ": " + MainWindow.SelectedBook.StringAvailability;
+            bookTitelTB.Text = MainWindow.SelectedBook.Title;
+            authorTB.Text = MainWindow.SelectedBook.Author;
+            genreTB.Text = MainWindow.SelectedBook.Genre;
+            bookInfoTB.Text = MainWindow.SelectedBook.BookInfo;
+
+
+        }
+
+        private void backBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainkWin = new MainWindow();
+
+            mainkWin.Show();
+            this.Close();
         }
     }
 }
