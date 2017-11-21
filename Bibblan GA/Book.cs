@@ -17,7 +17,7 @@ namespace Bibblan_GA
         private int totalBooks;
         private int pages = 0;
         private string bookInfo;
-
+        public bool minorAllowed { get; set; } = true;
         static int isbnCounter = 1000;
 
         public string Title { get => title; set => title = value; }

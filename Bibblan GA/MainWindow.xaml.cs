@@ -101,6 +101,16 @@ namespace Bibblan_GA
             SearchDel -= IsbnChecked;
         }
 
+        private void AgeCB_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AgeCB_Unchecked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         #endregion EventHandlers
 
         #region Methods
@@ -159,6 +169,24 @@ namespace Bibblan_GA
         {
             var temp = library.Where(x => x.Genre.ToLower().Contains(searchField.Text.ToLower()));
             CheckMethod(temp);
+        }
+
+
+        //TODO ASDFDGFHRSAESYDHTFJTSERD
+        public void AgeChecked(object source, EventArgs args)
+        {
+            var temp = library.Where(x => x.minorAllowed = false && x.Title.ToLower().Contains(searchField.Text.ToLower()));
+
+            foreach (var item in temp)
+            {
+                if (!listView.Items.Contains(item))
+                {
+                    if (item.minorAllowed == false)
+                        if (!listView.Items.Contains(item))
+                            listView.Items.Add(item);
+
+                }
+            }
         }
 
         public void AvailableChecked(object source, EventArgs args)
@@ -249,6 +277,7 @@ namespace Bibblan_GA
         }
 
         #endregion Methods
+
 
     }
 }
