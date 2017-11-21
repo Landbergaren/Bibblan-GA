@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 
 namespace Bibblan_GA
 {
+    
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -43,6 +44,7 @@ namespace Bibblan_GA
         {
             listView.Items.Clear();
             
+            // lägg publisher i en OnClick metod.. (protected virutal)
             if (SearchDel != null)
                 SearchDel(this, EventArgs.Empty);
         }

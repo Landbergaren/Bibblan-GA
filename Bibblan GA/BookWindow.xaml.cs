@@ -45,7 +45,6 @@ namespace Bibblan_GA
         private void backBtn_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mainkWin = new MainWindow();
-
             mainkWin.Show();
             this.Close();
         }
