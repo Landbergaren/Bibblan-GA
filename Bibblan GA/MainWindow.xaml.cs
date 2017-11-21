@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using System.IO;
 
 namespace Bibblan_GA
 {
@@ -11,7 +12,7 @@ namespace Bibblan_GA
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static Book SelectedBook { get; set; }
+      //  public static Book SelectedBook { get; set; }
         private List<Book> library = Library.BuildLibrary();
         private List<Account> memberList = Library.BuildMemberList();
 
@@ -199,8 +200,10 @@ namespace Bibblan_GA
 
         private void listView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            BookWindow bookWin = new BookWindow();
-            SelectedBook = (Book)listView.SelectedValue;
+            var selectedBook = (Book)listView.SelectedValue;
+            BookWindow bookWin = new BookWindow(selectedBook);
+
+
 
             bookWin.Show();
             this.Close();
