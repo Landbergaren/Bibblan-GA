@@ -46,7 +46,7 @@
                 <Border Padding="20" Grid.Column="1">
                     <Grid >
                         <Button x:Name="backBtn" Content="Back" Padding="5" Height="30" VerticalAlignment="Top" Click="backBtn_Click" />
-                        <Button Content="Book" Height="30" VerticalAlignment="Bottom"/>
+                        <Button x:Name="ReserveButton" Content="Reserve" Height="30" VerticalAlignment="Bottom" Click="ReserveButton_Click"/>
                     </Grid>
                 </Border>
             </Grid>

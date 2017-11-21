@@ -12,7 +12,6 @@ namespace Bibblan_GA
     /// </summary>
     public partial class MainWindow : Window
     {
-      //  public static Book SelectedBook { get; set; }
         private List<Book> library = Library.BuildLibrary();
         private List<Account> memberList = Library.BuildMemberList();
 
@@ -24,33 +23,9 @@ namespace Bibblan_GA
         {
             InitializeComponent();
             InitializeLibraryList();
-
             //library = library.OrderBy(x => x.Author).ToList(); <-- Orders lists with a lambda.
         }
 
-        public bool LogIn()
-        {
-            bool match = false;
-            List<Account> list = Library.BuildMemberList();
-
-            foreach (var members in list)
-            {
-                if (members.Username == UsernameField.Text && members.Password == PasswordField.Text)
-                {
-                    match = true;
-                    CheckAge(members.Age);
-                    MessageBox.Show("Successfully logged in");
-                    LogInButton.IsEnabled = false;
-                    UsernameField.IsReadOnly = true;
-                    PasswordField.IsReadOnly = true;
-                }
-            }
-
-            if (match == false)
-                MessageBox.Show("Error");
-
-            return match;
-        }
 
         #region EventHandlers
 
@@ -136,6 +111,32 @@ namespace Bibblan_GA
                 listView.Items.Add(books);
         }
 
+        public bool LogIn()
+        {
+            bool match = false;
+            List<Account> list = Library.BuildMemberList();
+
+            foreach (var members in list)
+            {
+                if (members.Username == UsernameField.Text && members.Password == PasswordField.Text)
+                {
+                    match = true;
+                    CheckAge(members.Age);
+                    MessageBox.Show("Successfully logged in");
+                    LogInButton.IsEnabled = false;
+                    UsernameField.IsReadOnly = true;
+                    PasswordField.IsReadOnly = true;
+                    FindButton.IsEnabled = true;
+                }
+            }
+
+            if (match == false)
+                MessageBox.Show("Error");
+
+            return match;
+        }
+
+
         public void AllChecked(object source, EventArgs args)
         {
             var temp = library.Where(x => (x.Title + x.Genre + x.Isbn + x.Author).ToLower().Contains(searchField.Text.ToLower()));
@@ -217,6 +218,30 @@ namespace Bibblan_GA
             }
         }
 
+        public void Reserve(Book ReservedBook)
+        {
+            if (ReservedBook.Availability == false)
+                MessageBox.Show("No books in storage");
+
+            else
+            {
+                foreach (var item in library)
+                    if (ReservedBook.Title.Equals(item.Title))
+                    {
+                        item.TotalBooks--;
+                        MessageBox.Show(item.TotalBooks.ToString());
+
+                        if (item.TotalBooks < 1)
+                        {
+                            ReservedBook.Availability = false;
+                            item.Availability = false;
+                        }
+                        MessageBox.Show("Book reserved");
+                    }
+
+            }
+        }
+
         private void CheckAge(int age)
         {
             if (age >= 18)
@@ -224,5 +249,6 @@ namespace Bibblan_GA
         }
 
         #endregion Methods
+
     }
 }

@@ -20,13 +20,13 @@ namespace Bibblan_GA
     public partial class BookWindow : Window
     {
         MainWindow mainWin = new MainWindow();
+        private List<Book> library = Library.BuildLibrary();
         private readonly Book selectedBook;
 
         public BookWindow(Book SelectedBook)
         {
             this.selectedBook = SelectedBook;
             InitializeComponent();
-
             InitializeStringsToFrames(selectedBook);
 
         }
@@ -49,6 +49,11 @@ namespace Bibblan_GA
             MainWindow mainkWin = new MainWindow();
             mainkWin.Show();
             this.Close();
+        }
+
+        private void ReserveButton_Click(object sender, RoutedEventArgs e)
+        {
+            mainWin.Reserve(selectedBook);
         }
     }
 }
