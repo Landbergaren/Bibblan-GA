@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bibblan_GA
 {
-    class Book
+    public class Book
     {
         private string title;
         private string author;
@@ -16,6 +16,7 @@ namespace Bibblan_GA
         private string type;
         private int totalBooks = 0;
         private int pages = 0;
+        private string bookInfo;
 
         static int isbnCounter = 1000;
 
@@ -29,8 +30,9 @@ namespace Bibblan_GA
         public int Pages { get => pages; set => pages = value; }
         public string StringAvailability { get { if (availability == true) return "Yes"; else return "No"; } }
 
+        public string BookInfo { get => bookInfo; set => bookInfo = value; }
 
-        public Book(string inTitle, string inAuthor, string ingenre, int intotalBooks, int inPages, bool availability)
+        public Book(string inTitle, string inAuthor, string ingenre, int intotalBooks, int inPages, bool availability, string bookinfo)
         {
             isbnCounter++;
 
@@ -41,6 +43,7 @@ namespace Bibblan_GA
             Isbn = isbnCounter;
             TotalBooks = intotalBooks;
             Availability = availability;
+            BookInfo = bookinfo;
         }
     }
 }

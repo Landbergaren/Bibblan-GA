@@ -11,13 +11,25 @@ namespace Bibblan_GA
         string name;
         string phonenumber;
         int age;
+        string username;
+        string password;
 
-        public Account(string name, string phonenumber, int age)
+        public Account(string name, string phonenumber, int age, string username, string password)
         {
-
+            Name = name;
+            Phonenumber = phonenumber;
+            Age = age;
+            Username = username;
+            Password = password;
         }
 
-       public virtual void Rent()
+        public string Name { get => name; set => name = value; }
+        public string Phonenumber { get => phonenumber; set => phonenumber = value; }
+        public int Age { get => age; set => age = value; }
+        public string Username { get => username; set => username = value; }
+        public string Password { get => password; set => password = value; }
+
+        public virtual void Rent(bool available)
         {
 
         }
@@ -27,13 +39,19 @@ namespace Bibblan_GA
     {
         bool vip;
 
-        public Adult(string name, string phonenumber, int age, bool vip) : base(name, phonenumber, age)
+        public Adult(string name, string phonenumber, int age, bool vip, string username, string password) : base(name, phonenumber, age, username, password)
         {
+            Name = name;
+            Phonenumber = phonenumber;
+            Age = age;
+            Username = username;
+            Password = password;
+
         }
 
-        public override void Rent()
+        public override void Rent(bool available)
         {
-            
+
         }
 
 
@@ -43,9 +61,20 @@ namespace Bibblan_GA
     {
         string parent;
 
-        public Minor(string name, string phonenumber, int age, string parent) : base(name, phonenumber, age)
+        public Minor(string name, string phonenumber, int age, string parent, string username, string password) : base(name, phonenumber, age, username, password)
         {
+            Name = name;
+            Phonenumber = phonenumber;
+            Age = age;
+            Username = username;
+            Password = password;
         }
     }
 
+    class Worker : Account
+    {
+        public Worker(string name, string phonenumber, int age, string username, string password) : base(name, phonenumber, age, username, password)
+        {
+        }
+    }
 }
