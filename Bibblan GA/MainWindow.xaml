@@ -44,7 +44,6 @@
                             <TextBlock Text="ISBN" />
                             <CheckBox x:Name="IsbnCB" Checked="IsbnCB_Checked" Unchecked="IsbnCB_Unchecked"  />
                         </StackPanel>
-                        <CheckBox x:Name="AgeCB" Content="" Grid.Column="2" HorizontalAlignment="Left" Margin="43.8,47,0,0" VerticalAlignment="Top" IsEnabled="False"/>
                     </Grid>
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -53,13 +52,13 @@
                             <ColumnDefinition Width="151*"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.ColumnSpan="3" Margin="0,0,-0.4,0.2">
-                            <Button Content="Find" Margin="0 10" Width="80" HorizontalAlignment="Left" Click="Button_Click" />
+                            <Button x:Name="FindButton" IsEnabled="False" Content="Find" Margin="0 10" Width="80" HorizontalAlignment="Left" Click="Button_Click" />
                         </StackPanel>
                     </Grid>
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" Grid.Row="0" >
-                    
+
                     <ListView x:Name="listView" Height="400" MouseDoubleClick="listView_MouseDoubleClick">
                         <ListView.View>
                             <GridView >
@@ -75,7 +74,6 @@
                         </ListView.View>
                     </ListView>
                 </StackPanel>
-                <Label Content="Erotika" HorizontalAlignment="Left" Margin="126,70,0,0" VerticalAlignment="Top"/>
                 <TextBox x:Name="UsernameField" HorizontalAlignment="Left" Height="23" Margin="0,200,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                 <TextBox x:Name="PasswordField" HorizontalAlignment="Left" Height="23" Margin="0,244,0,0" VerticalAlignment="Top" Width="120"/>
                 <Button x:Name="LogInButton" Content="Log in" HorizontalAlignment="Left" Margin="0,294,0,0" VerticalAlignment="Top" Width="75" Click="LogInButton_Click"/>

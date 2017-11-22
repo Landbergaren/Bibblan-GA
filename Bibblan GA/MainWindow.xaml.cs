@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using System.IO;
 
 namespace Bibblan_GA
 {
@@ -11,11 +12,13 @@ namespace Bibblan_GA
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static Book SelectedBook { get; set; }
-        private List<Book> library = Library.BuildLibrary();
-        private List<Account> memberList = Library.BuildMemberList();
+        //TODO Sätt ihop log-out knapp med inbygga LogOut metoden, göra gui-et snyggare, respektabel, ej slampig kod, fixa bättre namn till alla datatyper, kommentera koden
+
+        private List<Account> memberList = Account.BuildMemberList();
 
         public event EventHandler SearchDel;
+
+        public static bool match = false;
 
         public bool availabilityChecked = false;
 
@@ -24,32 +27,11 @@ namespace Bibblan_GA
             InitializeComponent();
             InitializeLibraryList();
 
+            LoggedIn(match);
+            
             //library = library.OrderBy(x => x.Author).ToList(); <-- Orders lists with a lambda.
         }
 
-        public bool LogIn()
-        {
-            bool match = false;
-            List<Account> list = Library.BuildMemberList();
-
-            foreach (var members in list)
-            {
-                if (members.Username == UsernameField.Text && members.Password == PasswordField.Text)
-                {
-                    match = true;
-                    CheckAge(members.Age);
-                    MessageBox.Show("Successfully logged in");
-                    LogInButton.IsEnabled = false;
-                    UsernameField.IsReadOnly = true;
-                    PasswordField.IsReadOnly = true;
-                }
-            }
-
-            if (match == false)
-                MessageBox.Show("Error");
-
-            return match;
-        }
 
         #region EventHandlers
 
@@ -131,37 +113,78 @@ namespace Bibblan_GA
 
         public void InitializeLibraryList()
         {
-            foreach (var books in library)
-                listView.Items.Add(books);
+            foreach (var book in Library.Books)
+                listView.Items.Add(book);
+        }
+
+        public bool LogIn()
+        {
+            List<Account> list = Account.BuildMemberList();
+
+            foreach (var members in list)
+            {
+                if (members.Username == UsernameField.Text && members.Password == PasswordField.Text)
+                {
+                    match = true;
+                    LoggedIn(match);
+                    MessageBox.Show("Successfully logged in");
+
+                }
+            }
+
+            if (match == false)
+                MessageBox.Show("Error");
+
+            return match;
+        }
+
+        public void LoggedIn(bool x)
+        {
+            if (x == true)
+            {
+                LogInButton.IsEnabled = false;
+                UsernameField.IsReadOnly = true;
+                PasswordField.IsReadOnly = true;
+                FindButton.IsEnabled = true;
+            }
+        }
+
+        public void LogOut(bool x)
+        {
+            LogInButton.IsEnabled = true;
+            UsernameField.IsReadOnly = false;
+            PasswordField.IsReadOnly = false;
+            FindButton.IsEnabled = false;
+            match = false;
         }
 
         public void AllChecked(object source, EventArgs args)
         {
-            var temp = library.Where(x => (x.Title + x.Genre + x.Isbn + x.Author).ToLower().Contains(searchField.Text.ToLower()));
+            var temp = Library.Books.Where(x => (x.Title + x.Genre + x.Isbn + x.Author).ToLower().Contains(searchField.Text.ToLower()));
             CheckMethod(temp);
         }
 
         public void TitelChecked(object source, EventArgs args)
         {
-            var temp = library.Where(x => x.Title.ToLower().Contains(searchField.Text.ToLower()));
+            var temp = Library.Books.Where(x => x.Title.ToLower().Contains(searchField.Text.ToLower()));
             CheckMethod(temp);
         }
 
         public void AuthorChecked(object source, EventArgs args)
         {
-            var temp = library.Where(x => x.Author.ToLower().Contains(searchField.Text.ToLower()));
+            var temp = Library.Books.Where(x => x.Author.ToLower().Contains(searchField.Text.ToLower()));
             CheckMethod(temp);
         }
 
         public void GenreChecked(object source, EventArgs args)
         {
-            var temp = library.Where(x => x.Genre.ToLower().Contains(searchField.Text.ToLower()));
+            var temp = Library.Books.Where(x => x.Genre.ToLower().Contains(searchField.Text.ToLower()));
             CheckMethod(temp);
         }
 
         public void AvailableChecked(object source, EventArgs args)
         {
-            var temp = library.Where(x => x.Availability.ToString().Contains(searchField.Text.ToLower()));
+            var temp = Library.Books.Where(x => x.Availability.ToString().Contains(searchField.Text.ToLower()));
             foreach (var item in temp)
             {
                 if (!listView.Items.Contains(item))
@@ -179,7 +202,7 @@ namespace Bibblan_GA
 
         public void IsbnChecked(object source, EventArgs args)
         {
-            var temp = library.Where(x => x.Isbn.ToString().Contains(searchField.Text));
+            var temp = Library.Books.Where(x => x.Isbn.ToString().Contains(searchField.Text));
             CheckMethod(temp);
         }
 
@@ -199,8 +222,10 @@ namespace Bibblan_GA
 
         private void listView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            BookWindow bookWin = new BookWindow();
-            SelectedBook = (Book)listView.SelectedValue;
+            var selectedBook = (Book)listView.SelectedValue;
+            BookWindow bookWin = new BookWindow(selectedBook);
+
+
 
             bookWin.Show();
             this.Close();
@@ -214,12 +239,30 @@ namespace Bibblan_GA
             }
         }
 
-        private void CheckAge(int age)
+        public void Reserve(Book ReservedBook)
         {
-            if (age >= 18)
-                AgeCB.IsEnabled = true;
+            if (ReservedBook.Availability == false)
+                MessageBox.Show("No books in storage");
+
+            else
+            {
+                foreach (var item in Library.Books)
+                    if (ReservedBook.Title.Equals(item.Title))
+                    {
+                        item.TotalBooks--;
+
+                        if (item.TotalBooks < 1)
+                        {
+                            ReservedBook.Availability = false;
+                            item.Availability = false;
+                        }
+                        MessageBox.Show("Book reserved");
+                    }
+            }
         }
 
         #endregion Methods
+
+
     }
 }

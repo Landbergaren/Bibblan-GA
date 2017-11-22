@@ -14,10 +14,9 @@ namespace Bibblan_GA
         private int isbn;
         private bool availability;
         private string type;
-        private int totalBooks = 0;
+        private int totalBooks;
         private int pages = 0;
         private string bookInfo;
-
         static int isbnCounter = 1000;
 
         public string Title { get => title; set => title = value; }
@@ -26,7 +25,7 @@ namespace Bibblan_GA
         public int Isbn { get => isbn; set => isbn = value; }
         public bool Availability { get => availability; set => availability = value; }
         public string Type { get => type; set => type = value; }
-        public int TotalBooks { get => totalBooks; set => totalBooks = value; }
+        public int TotalBooks { get { return totalBooks; } set => totalBooks = value; }
         public int Pages { get => pages; set => pages = value; }
         public string StringAvailability { get { if (availability == true) return "Yes"; else return "No"; } }
 

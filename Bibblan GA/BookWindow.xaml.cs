@@ -20,24 +20,26 @@ namespace Bibblan_GA
     public partial class BookWindow : Window
     {
         MainWindow mainWin = new MainWindow();
+        private readonly Book selectedBook;
 
-        public BookWindow()
+        public BookWindow(Book SelectedBook)
         {
+            this.selectedBook = SelectedBook;
             InitializeComponent();
-            
-            InitializeStringsToFrames();
+            InitializeStringsToFrames(selectedBook);
+            ReserveButton.IsEnabled = MainWindow.match;
 
         }
 
-        async public void InitializeStringsToFrames()
+        public void InitializeStringsToFrames(Book book)
         {
-            await Task.Delay(100);
 
-            bookAvailableTB.Text +=  ": " + MainWindow.SelectedBook.StringAvailability;
-            bookTitelTB.Text = MainWindow.SelectedBook.Title;
-            authorTB.Text = MainWindow.SelectedBook.Author;
-            genreTB.Text = MainWindow.SelectedBook.Genre;
-            bookInfoTB.Text = MainWindow.SelectedBook.BookInfo;
+
+            bookAvailableTB.Text = "Available: " + book.StringAvailability + "      Total: " + book.TotalBooks;
+            bookTitelTB.Text = book.Title;
+            authorTB.Text = book.Author;
+            genreTB.Text = book.Genre;
+            bookInfoTB.Text = book.BookInfo;
 
 
         }
@@ -47,6 +49,12 @@ namespace Bibblan_GA
             MainWindow mainkWin = new MainWindow();
             mainkWin.Show();
             this.Close();
+        }
+
+        private void ReserveButton_Click(object sender, RoutedEventArgs e)
+        {
+            mainWin.Reserve(selectedBook);
+            InitializeStringsToFrames(selectedBook);
         }
     }
 }
