@@ -20,7 +20,6 @@ namespace Bibblan_GA
     public partial class BookWindow : Window
     {
         MainWindow mainWin = new MainWindow();
-        private List<Book> library = Library.BuildLibrary();
         private readonly Book selectedBook;
 
         public BookWindow(Book SelectedBook)
@@ -28,6 +27,7 @@ namespace Bibblan_GA
             this.selectedBook = SelectedBook;
             InitializeComponent();
             InitializeStringsToFrames(selectedBook);
+            ReserveButton.IsEnabled = MainWindow.match;
 
         }
 
@@ -35,7 +35,7 @@ namespace Bibblan_GA
         {
 
 
-            bookAvailableTB.Text += ": " + book.StringAvailability;
+            bookAvailableTB.Text = "Available: " + book.StringAvailability + "      Total: " + book.TotalBooks;
             bookTitelTB.Text = book.Title;
             authorTB.Text = book.Author;
             genreTB.Text = book.Genre;
@@ -54,6 +54,7 @@ namespace Bibblan_GA
         private void ReserveButton_Click(object sender, RoutedEventArgs e)
         {
             mainWin.Reserve(selectedBook);
+            InitializeStringsToFrames(selectedBook);
         }
     }
 }

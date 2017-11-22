@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bibblan_GA
 {
-    abstract class Account
+    class Account
     {
         string name;
         string phonenumber;
@@ -33,48 +33,18 @@ namespace Bibblan_GA
         {
 
         }
-    }
 
-    class Adult : Account
-    {
-        bool vip;
-
-        public Adult(string name, string phonenumber, int age, bool vip, string username, string password) : base(name, phonenumber, age, username, password)
+        public static List<Account> BuildMemberList()
         {
-            Name = name;
-            Phonenumber = phonenumber;
-            Age = age;
-            Username = username;
-            Password = password;
+            List<Account> Members = new List<Account>();
+            Members.Add(new Account("Steve Jobs", "666-666", 50, "Apple", "Apple"));
+            Members.Add(new Account("Steve Jobs", "666-666", 50, "Banana", "Banana"));
+            Members.Add(new Account("Steve Jobs", "666-666", 50, "Peach", "Peach"));
+            Members.Add(new Account("Steve Jobs", "666-666", 5, "Broccoli", "Broccoli"));
+            Members.Add(new Account("Steve Jobs", "666-666", 12, "Potato", "Potato"));
+            Members.Add(new Account("Steve Jobs", "666-666", 10, "Onion", "Onion"));
 
-        }
-
-        public override void Rent(bool available)
-        {
-
-        }
-
-
-    }
-
-    class Minor : Account
-    {
-        string parent;
-
-        public Minor(string name, string phonenumber, int age, string parent, string username, string password) : base(name, phonenumber, age, username, password)
-        {
-            Name = name;
-            Phonenumber = phonenumber;
-            Age = age;
-            Username = username;
-            Password = password;
-        }
-    }
-
-    class Worker : Account
-    {
-        public Worker(string name, string phonenumber, int age, string username, string password) : base(name, phonenumber, age, username, password)
-        {
+            return Members;
         }
     }
 }
