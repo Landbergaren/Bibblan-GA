@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Your Book" WindowStartupLocation="CenterScreen" Width="1000" Height="600">
 
-    <Border Padding="20">
+    <Border Padding="20" Background="Wheat">
 
         <StackPanel>
             <TextBlock x:Name="bookTitelTB" Text="Book titel" HorizontalAlignment="Center" FontSize="40" FontWeight="Bold" Margin="10" />
@@ -38,9 +38,9 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Border Padding="20" BorderThickness="2px" BorderBrush="Black">
+                <Border Padding="20" BorderBrush="Black">
                     <Grid Height="260" Grid.Column="0">
-                        <TextBlock x:Name="bookInfoTB" TextWrapping="Wrap" Text="some info about the book"/>
+                        <TextBlock x:Name="bookInfoTB" TextWrapping="Wrap" Text="some info about the book" Background="White" Padding="10"/>
                     </Grid>
                 </Border>
                 <Border Padding="20" Grid.Column="1">

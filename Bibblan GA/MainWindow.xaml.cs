@@ -261,8 +261,12 @@ namespace Bibblan_GA
             }
         }
 
+
         #endregion Methods
 
+        private void LogOutButton_Click(object sender, RoutedEventArgs e)
+        {
 
+        }
     }
 }
