@@ -163,7 +163,6 @@ namespace Bibblan_GA
             LogInButton.IsEnabled = true;
             UsernameField.IsReadOnly = false;
             PasswordField.IsReadOnly = false;
-            FindButton.IsEnabled = false;
             match = false;
             MessageBox.Show("User has logged out");
         }
