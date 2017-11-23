@@ -12,7 +12,7 @@ namespace Bibblan_GA
     /// </summary>
     public partial class MainWindow : Window
     {
-        //TODO Sätt ihop log-out knapp med inbygga LogOut metoden, göra gui-et snyggare, respektabel, ej slampig kod, fixa bättre namn till alla datatyper, kommentera koden
+        //TODO respektabel, ej slampig kod, fixa bättre namn till alla datatyper, kommentera koden
 
         private List<Account> memberList = Account.BuildMemberList();
 
