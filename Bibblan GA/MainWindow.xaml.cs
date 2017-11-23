@@ -38,6 +38,15 @@ namespace Bibblan_GA
         private void LogInButton_Click(object sender, RoutedEventArgs e)
         {
             LogIn();
+            UsernameField.Clear();
+            PasswordField.Clear();
+        }
+
+        private void LogOutButton_Click(object sender, RoutedEventArgs e)
+        {
+            LogOut(false);
+            UsernameField.Clear();
+            PasswordField.Clear();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -156,6 +165,7 @@ namespace Bibblan_GA
             PasswordField.IsReadOnly = false;
             FindButton.IsEnabled = false;
             match = false;
+            MessageBox.Show("User has logged out");
         }
 
         public void AllChecked(object source, EventArgs args)
@@ -264,9 +274,5 @@ namespace Bibblan_GA
 
         #endregion Methods
 
-        private void LogOutButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }
