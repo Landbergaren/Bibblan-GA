@@ -8,6 +8,7 @@ namespace Bibblan_GA
 {
     class Account
     {
+        private static List<Account> list = BuildMemberList();
         string name;
         string phonenumber;
         int age;
@@ -34,7 +35,7 @@ namespace Bibblan_GA
 
         }
 
-        public static List<Account> BuildMemberList()
+        private static List<Account> BuildMemberList()
         {
             List<Account> Members = new List<Account>();
             Members.Add(new Account("Steve Jobs", "666-666", 50, "Apple", "Apple"));
@@ -45,6 +46,20 @@ namespace Bibblan_GA
             Members.Add(new Account("Steve Jobs", "666-666", 10, "Onion", "Onion"));
 
             return Members;
+        }
+
+        public static bool LogIn(string username, string password)
+        {
+            bool matchfound = false;
+            foreach (var members in list)
+            {
+                if (members.Username == username && members.Password == password)
+                {
+                    matchfound = true;
+                    return matchfound;
+                }
+            }
+                return matchfound;
         }
     }
 }

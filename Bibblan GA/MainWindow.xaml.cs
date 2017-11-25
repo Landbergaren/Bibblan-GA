@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.IO;
+using System.Windows.Controls;
 
 namespace Bibblan_GA
 {
@@ -13,22 +14,21 @@ namespace Bibblan_GA
     public partial class MainWindow : Window
     {
         //TODO respektabel, ej slampig kod, fixa bättre namn till alla datatyper, kommentera koden
-
-        private List<Account> memberList = Account.BuildMemberList();
-
         public event EventHandler SearchDel;
 
-        public static bool match = false;
+        List<Book> GlobalList = new List<Book>();
+
+        public static bool UserOnline = false;
 
         public bool availabilityChecked = false;
 
         public MainWindow()
         {
             InitializeComponent();
-            InitializeLibraryList();
+            //InitializeLibraryList();
 
-            LoggedIn(match);
-            
+            CheckUserOnline(UserOnline);
+
             //library = library.OrderBy(x => x.Author).ToList(); <-- Orders lists with a lambda.
         }
 
@@ -37,7 +37,8 @@ namespace Bibblan_GA
 
         private void LogInButton_Click(object sender, RoutedEventArgs e)
         {
-            LogIn();
+            bool matchfound = Account.LogIn(UsernameField.Text, PasswordField.Text);
+            CheckUserOnline(matchfound);
             UsernameField.Clear();
             PasswordField.Clear();
         }
@@ -49,11 +50,12 @@ namespace Bibblan_GA
             PasswordField.Clear();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void FindButton_Click(object sender, RoutedEventArgs e)
         {
             listView.Items.Clear();
-
+            GlobalList.Clear();
             OnClick();
+            PrintToListView();
         }
 
         private void AllCB_Checked(object sender, RoutedEventArgs e)
@@ -120,41 +122,15 @@ namespace Bibblan_GA
 
         #region Methods
 
-        public void InitializeLibraryList()
+        public void CheckUserOnline(bool matchfound)
         {
-            foreach (var book in Library.Books)
-                listView.Items.Add(book);
-        }
-
-        public bool LogIn()
-        {
-            List<Account> list = Account.BuildMemberList();
-
-            foreach (var members in list)
-            {
-                if (members.Username == UsernameField.Text && members.Password == PasswordField.Text)
-                {
-                    match = true;
-                    LoggedIn(match);
-                    MessageBox.Show("Successfully logged in");
-
-                }
-            }
-
-            if (match == false)
-                MessageBox.Show("Error");
-
-            return match;
-        }
-
-        public void LoggedIn(bool x)
-        {
-            if (x == true)
+            if (matchfound == true)
             {
                 LogInButton.IsEnabled = false;
                 UsernameField.IsReadOnly = true;
                 PasswordField.IsReadOnly = true;
                 FindButton.IsEnabled = true;
+                UserOnline = true;
             }
         }
 
@@ -163,37 +139,38 @@ namespace Bibblan_GA
             LogInButton.IsEnabled = true;
             UsernameField.IsReadOnly = false;
             PasswordField.IsReadOnly = false;
-            match = false;
+            UserOnline = false;
             MessageBox.Show("User has logged out");
         }
 
         public void AllChecked(object source, EventArgs args)
         {
-            var temp = Library.Books.Where(x => (x.Title + x.Genre + x.Isbn + x.Author).ToLower().Contains(searchField.Text.ToLower()));
-            CheckMethod(temp);
+            var filteredList = Library.Books.Where(x => (x.Title + x.Genre + x.Isbn + x.Author).ToLower().Contains(searchField.Text.ToLower()));
+            PrintToGlobalList(filteredList);
         }
 
         public void TitelChecked(object source, EventArgs args)
         {
-            var temp = Library.Books.Where(x => x.Title.ToLower().Contains(searchField.Text.ToLower()));
-            CheckMethod(temp);
+            var filteredList = Library.Books.Where(x => x.Title.ToLower().Contains(searchField.Text.ToLower()));
+            PrintToGlobalList(filteredList);
         }
 
         public void AuthorChecked(object source, EventArgs args)
         {
-            var temp = Library.Books.Where(x => x.Author.ToLower().Contains(searchField.Text.ToLower()));
-            CheckMethod(temp);
+            var filteredList = Library.Books.Where(x => x.Author.ToLower().Contains(searchField.Text.ToLower()));
+            PrintToGlobalList(filteredList);
         }
 
         public void GenreChecked(object source, EventArgs args)
         {
-            var temp = Library.Books.Where(x => x.Genre.ToLower().Contains(searchField.Text.ToLower()));
-            CheckMethod(temp);
+            var filteredList = Library.Books.Where(x => x.Genre.ToLower().Contains(searchField.Text.ToLower()));
+            PrintToGlobalList(filteredList);
         }
 
         public void AvailableChecked(object source, EventArgs args)
         {
             var temp = Library.Books.Where(x => x.Availability.ToString().Contains(searchField.Text.ToLower()));
+
             foreach (var item in temp)
             {
                 if (!listView.Items.Contains(item))
@@ -211,30 +188,45 @@ namespace Bibblan_GA
 
         public void IsbnChecked(object source, EventArgs args)
         {
-            var temp = Library.Books.Where(x => x.Isbn.ToString().Contains(searchField.Text));
-            CheckMethod(temp);
+            var filteredList = Library.Books.Where(x => x.Isbn.ToString().Contains(searchField.Text));
+            PrintToGlobalList(filteredList);
         }
 
-        private void CheckMethod(IEnumerable<Book> x)
+        public void PrintToGlobalList(IEnumerable <Book> list)
         {
-            foreach (var item in x)
+            foreach (var book in list)
             {
-                if (availabilityChecked == false)
-                    if (!listView.Items.Contains(item))
-                        listView.Items.Add(item);
-
-                if (availabilityChecked == true && item.Availability == true)
-                    if (!listView.Items.Contains(item))
-                        listView.Items.Add(item);
+                GlobalList.Add(book);
             }
         }
+
+        public void PrintToListView()
+        {
+           var ListqueryList = GlobalList.Distinct().ToList();
+            foreach (var book in ListqueryList)
+            {
+                listView.Items.Add(book);
+            }
+        }
+
+        //private void CheckMethod(IEnumerable<Book> x)
+        //{
+        //    foreach (var item in x)
+        //    {
+        //        if (availabilityChecked == false)
+        //            if (!listView.Items.Contains(item))
+        //                listView.Items.Add(item);
+
+        //        if (availabilityChecked == true && item.Availability == true)
+        //            if (!listView.Items.Contains(item))
+        //                listView.Items.Add(item);
+        //    }
+        //}
 
         private void listView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var selectedBook = (Book)listView.SelectedValue;
             BookWindow bookWin = new BookWindow(selectedBook);
-
-
 
             bookWin.Show();
             this.Close();
@@ -248,21 +240,21 @@ namespace Bibblan_GA
             }
         }
 
-        public void Reserve(Book ReservedBook)
+        public void Reserve(Book SelectedBook)
         {
-            if (ReservedBook.Availability == false)
+            if (SelectedBook.Availability == false)
                 MessageBox.Show("No books in storage");
 
             else
             {
                 foreach (var item in Library.Books)
-                    if (ReservedBook.Title.Equals(item.Title))
+                    if (SelectedBook.Title.Equals(item.Title))
                     {
                         item.TotalBooks--;
 
                         if (item.TotalBooks < 1)
                         {
-                            ReservedBook.Availability = false;
+                            SelectedBook.Availability = false;
                             item.Availability = false;
                         }
                         MessageBox.Show("Book reserved");

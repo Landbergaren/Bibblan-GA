@@ -56,7 +56,7 @@
                             <ColumnDefinition Width="151*"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.ColumnSpan="3" Margin="0,0,-0.4,0.2">
-                            <Button x:Name="FindButton" IsEnabled="True" Content="Find" Margin="0 10" Width="80" HorizontalAlignment="Left" Click="Button_Click" />
+                            <Button x:Name="FindButton" IsEnabled="True" Content="Find" Margin="0 10" Width="80" HorizontalAlignment="Left" Click="FindButton_Click" />
                             <TextBlock Text="Account" />
                             <TextBox x:Name="UsernameField" HorizontalAlignment="Left" Height="23" Margin="0,0,0,10" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                             <TextBlock Text="Password" />

@@ -27,7 +27,7 @@ namespace Bibblan_GA
             this.selectedBook = SelectedBook;
             InitializeComponent();
             InitializeStringsToFrames(selectedBook);
-            ReserveButton.IsEnabled = MainWindow.match;
+            ReserveButton.IsEnabled = MainWindow.UserOnline;
 
         }
 
