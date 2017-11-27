@@ -20,7 +20,6 @@ namespace Bibblan_GA
             InitializeComponent();
             InitializeStringsToFrames(selectedBook);
             ReserveButton.IsEnabled = MainWindow.UserOnline;
-
         }
 
         /// <summary>
@@ -34,8 +33,6 @@ namespace Bibblan_GA
             authorTB.Text = book.Author;
             genreTB.Text = book.Genre;
             BookInfoTB.Text = book.BookInfo;
-
-
         }
 
         /// <summary>

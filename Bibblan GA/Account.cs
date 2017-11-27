@@ -33,11 +33,6 @@ namespace Bibblan_GA
         public string Username { get => username; }
         public string Password { get => password; }
 
-        public virtual void Rent(bool available)
-        {
-
-        }
-
         /// <summary>
         /// Builds needed memberlist
         /// </summary>
