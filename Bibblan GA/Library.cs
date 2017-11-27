@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace Bibblan_GA
 {
+    /// <summary>
+    /// Simulating library db
+    /// </summary>
     class Library
     {
+        /// <summary>
+        /// Containing all books
+        /// </summary>
         public static List<Book> Books = new List<Book>
             {
                 new Book("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", 3, 250, true, "The Great Gatsby, F. Scott Fitzgerald's third book, stands as the supreme achievement of his career. This exemplary novel of the Jazz Age has been acclaimed by generations of readers. The story of the fabulously wealthy Jay Gatsby and his love for the beautiful Daisy Buchanan, of lavish parties on Long Island at a time when The New York Times noted gin was the national drink and sex the national obsession. it is an exquisitely crafted tale of America in the 1920s."),

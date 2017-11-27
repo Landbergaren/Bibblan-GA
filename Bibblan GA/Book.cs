@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Bibblan_GA
 {
+    /// <summary>
+    /// Book available for rent
+    /// </summary>
     public class Book
     {
         private string title;
@@ -28,6 +31,16 @@ namespace Bibblan_GA
         public string StringAvailability { get { if (availability == true) return "Yes"; else return "No"; } }
         public string BookInfo { get => bookInfo; }
 
+        /// <summary>
+        /// Sets all values needed
+        /// </summary>
+        /// <param name="inTitle"></param>
+        /// <param name="inAuthor"></param>
+        /// <param name="ingenre"></param>
+        /// <param name="intotalBooks"></param>
+        /// <param name="inPages"></param>
+        /// <param name="availability"></param>
+        /// <param name="bookinfo"></param>
         public Book(string inTitle, string inAuthor, string ingenre, int intotalBooks, int inPages, bool availability, string bookinfo)
         {
             isbnCounter++;

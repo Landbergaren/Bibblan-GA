@@ -3,9 +3,15 @@ using System.Windows;
 
 namespace Bibblan_GA
 {
+    /// <summary>
+    /// Manages as much as possible concering Accounts
+    /// </summary>
     class Account
     {
-        private static List<Account> list = BuildMemberList();
+        /// <summary>
+        /// simulates database for all registered members
+        /// </summary>
+        private static List<Account> memberList = BuildMemberList();
         string name;
         string phonenumber;
         int age;
@@ -32,6 +38,10 @@ namespace Bibblan_GA
 
         }
 
+        /// <summary>
+        /// Builds needed memberlist
+        /// </summary>
+        /// <returns></returns>
         private static List<Account> BuildMemberList()
         {
             List<Account> Members = new List<Account>();
@@ -45,10 +55,16 @@ namespace Bibblan_GA
             return Members;
         }
 
+        /// <summary>
+        /// Returns true if user typed in existing user-details, else false. 
+        /// </summary>
+        /// <param name="usernameInput"></param>
+        /// <param name="passwordInput"></param>
+        /// <returns></returns>
         public static bool LogIn(string usernameInput, string passwordInput)
         {
             bool matchfound = false;
-            foreach (var member in list)
+            foreach (var member in memberList)
             {
                 if (member.Username == usernameInput && member.Password == passwordInput)
                 {

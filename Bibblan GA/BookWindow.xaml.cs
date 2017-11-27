@@ -10,6 +10,10 @@ namespace Bibblan_GA
         MainWindow mainWin = new MainWindow();
         private readonly Book selectedBook;
 
+        /// <summary>
+        /// Brings and sets choosen book-values from Mainwindow
+        /// </summary>
+        /// <param name="SelectedBook">The book that user choosed in Mainwindow</param>
         public BookWindow(Book SelectedBook)
         {
             this.selectedBook = SelectedBook;
@@ -19,6 +23,10 @@ namespace Bibblan_GA
 
         }
 
+        /// <summary>
+        /// Inserts correct values in the window elements
+        /// </summary>
+        /// <param name="book">Currently choosen book</param>
         public void InitializeStringsToFrames(Book book)
         {
             BookAvailableTB.Text = "Available: " + book.StringAvailability + "      Total: " + book.TotalBooks;
@@ -30,6 +38,11 @@ namespace Bibblan_GA
 
         }
 
+        /// <summary>
+        /// Takes user back to mainwindow and closes current
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mainkWin = new MainWindow();
@@ -37,6 +50,11 @@ namespace Bibblan_GA
             this.Close();
         }
 
+        /// <summary>
+        /// Reserves current book for the user and updates window-elements
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ReserveButton_Click(object sender, RoutedEventArgs e)
         {
             mainWin.Reserve(selectedBook);
