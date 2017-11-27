@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using System.IO;
-using System.Windows.Controls;
 
 namespace Bibblan_GA
 {
@@ -13,25 +11,15 @@ namespace Bibblan_GA
     /// </summary>
     public partial class MainWindow : Window
     {
-        //TODO respektabel, ej slampig kod, fixa bättre namn till alla datatyper, kommentera koden
         public event EventHandler SearchDel;
-
-        List<Book> GlobalList = new List<Book>();
-
+        List<Book> listToBePrinted = new List<Book>();
         public static bool UserOnline = false;
-
-        public bool availabilityChecked = false;
 
         public MainWindow()
         {
             InitializeComponent();
-            //InitializeLibraryList();
-
             CheckUserOnline(UserOnline);
-
-            //library = library.OrderBy(x => x.Author).ToList(); <-- Orders lists with a lambda.
         }
-
 
         #region EventHandlers
 
@@ -45,7 +33,7 @@ namespace Bibblan_GA
 
         private void LogOutButton_Click(object sender, RoutedEventArgs e)
         {
-            LogOut(false);
+            SetWindowElementsOnLogOut();
             UsernameField.Clear();
             PasswordField.Clear();
         }
@@ -53,7 +41,7 @@ namespace Bibblan_GA
         private void FindButton_Click(object sender, RoutedEventArgs e)
         {
             listView.Items.Clear();
-            GlobalList.Clear();
+            listToBePrinted.Clear();
             OnClick();
             PrintToListView();
         }
@@ -68,12 +56,12 @@ namespace Bibblan_GA
             SearchDel -= AllChecked;
         }
 
-        private void titelCB_Checked(object sender, RoutedEventArgs e)
+        private void TitelCB_Checked(object sender, RoutedEventArgs e)
         {
             SearchDel += TitelChecked;
         }
 
-        private void titelCB_Unchecked(object sender, RoutedEventArgs e)
+        private void TitelCB_Unchecked(object sender, RoutedEventArgs e)
         {
             SearchDel -= TitelChecked;
         }
@@ -98,16 +86,6 @@ namespace Bibblan_GA
             SearchDel -= GenreChecked;
         }
 
-        private void availableCB_Checked(object sender, RoutedEventArgs e)
-        {
-            availabilityChecked = true;
-        }
-
-        private void availableCB_Unchecked(object sender, RoutedEventArgs e)
-        {
-            availabilityChecked = false;
-        }
-
         private void IsbnCB_Checked(object sender, RoutedEventArgs e)
         {
             SearchDel += IsbnChecked;
@@ -127,6 +105,7 @@ namespace Bibblan_GA
             if (matchfound == true)
             {
                 LogInButton.IsEnabled = false;
+                LogOutButton.IsEnabled = true;
                 UsernameField.IsReadOnly = true;
                 PasswordField.IsReadOnly = true;
                 FindButton.IsEnabled = true;
@@ -134,9 +113,10 @@ namespace Bibblan_GA
             }
         }
 
-        public void LogOut(bool x)
+        public void SetWindowElementsOnLogOut()
         {
             LogInButton.IsEnabled = true;
+            LogOutButton.IsEnabled = false;
             UsernameField.IsReadOnly = false;
             PasswordField.IsReadOnly = false;
             UserOnline = false;
@@ -167,22 +147,13 @@ namespace Bibblan_GA
             PrintToGlobalList(filteredList);
         }
 
-        public void AvailableChecked(object source, EventArgs args)
+        public void AvailableChecked()
         {
-            var temp = Library.Books.Where(x => x.Availability.ToString().Contains(searchField.Text.ToLower()));
+            var temp = listToBePrinted.Where(x => x.Availability);
 
             foreach (var item in temp)
             {
-                if (!listView.Items.Contains(item))
-                {
-                    if (availabilityChecked == false)
-                        if (!listView.Items.Contains(item))
-                            listView.Items.Add(item);
-
-                    if (availabilityChecked == true && item.Availability == true)
-                        if (!listView.Items.Contains(item))
-                            listView.Items.Add(item);
-                }
+                listView.Items.Add(item);
             }
         }
 
@@ -192,38 +163,28 @@ namespace Bibblan_GA
             PrintToGlobalList(filteredList);
         }
 
-        public void PrintToGlobalList(IEnumerable <Book> list)
+        public void PrintToGlobalList(IEnumerable<Book> list)
         {
             foreach (var book in list)
             {
-                GlobalList.Add(book);
+                listToBePrinted.Add(book);
             }
         }
 
         public void PrintToListView()
         {
-           var ListqueryList = GlobalList.Distinct().ToList();
-            foreach (var book in ListqueryList)
+            var ListqueryList = listToBePrinted.Distinct().ToList();
+
+            if ((bool)!availableCB.IsChecked)
             {
-                listView.Items.Add(book);
+                foreach (var book in ListqueryList)
+                    listView.Items.Add(book);
             }
+            else
+                AvailableChecked();
         }
 
-        //private void CheckMethod(IEnumerable<Book> x)
-        //{
-        //    foreach (var item in x)
-        //    {
-        //        if (availabilityChecked == false)
-        //            if (!listView.Items.Contains(item))
-        //                listView.Items.Add(item);
-
-        //        if (availabilityChecked == true && item.Availability == true)
-        //            if (!listView.Items.Contains(item))
-        //                listView.Items.Add(item);
-        //    }
-        //}
-
-        private void listView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var selectedBook = (Book)listView.SelectedValue;
             BookWindow bookWin = new BookWindow(selectedBook);
@@ -235,8 +196,7 @@ namespace Bibblan_GA
         private void OnClick()
         {
             {
-                if (SearchDel != null)
-                    SearchDel(this, EventArgs.Empty);
+                SearchDel?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -251,19 +211,10 @@ namespace Bibblan_GA
                     if (SelectedBook.Title.Equals(item.Title))
                     {
                         item.TotalBooks--;
-
-                        if (item.TotalBooks < 1)
-                        {
-                            SelectedBook.Availability = false;
-                            item.Availability = false;
-                        }
                         MessageBox.Show("Book reserved");
                     }
             }
         }
-
-
         #endregion Methods
-
     }
 }

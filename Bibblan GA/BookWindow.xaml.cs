@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
 
 namespace Bibblan_GA
 {
@@ -33,18 +21,16 @@ namespace Bibblan_GA
 
         public void InitializeStringsToFrames(Book book)
         {
-
-
-            bookAvailableTB.Text = "Available: " + book.StringAvailability + "      Total: " + book.TotalBooks;
-            bookTitelTB.Text = book.Title;
+            BookAvailableTB.Text = "Available: " + book.StringAvailability + "      Total: " + book.TotalBooks;
+            BookTitelTB.Text = book.Title;
             authorTB.Text = book.Author;
             genreTB.Text = book.Genre;
-            bookInfoTB.Text = book.BookInfo;
+            BookInfoTB.Text = book.BookInfo;
 
 
         }
 
-        private void backBtn_Click(object sender, RoutedEventArgs e)
+        private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mainkWin = new MainWindow();
             mainkWin.Show();

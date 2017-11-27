@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Windows;
 
 namespace Bibblan_GA
 {
@@ -17,18 +14,18 @@ namespace Bibblan_GA
 
         public Account(string name, string phonenumber, int age, string username, string password)
         {
-            Name = name;
-            Phonenumber = phonenumber;
-            Age = age;
-            Username = username;
-            Password = password;
+            this.name = name;
+            this.phonenumber = phonenumber;
+            this.age = age;
+            this.username = username;
+            this.password = password;
         }
 
-        public string Name { get => name; set => name = value; }
-        public string Phonenumber { get => phonenumber; set => phonenumber = value; }
-        public int Age { get => age; set => age = value; }
-        public string Username { get => username; set => username = value; }
-        public string Password { get => password; set => password = value; }
+        public string Name { get => name; }
+        public string Phonenumber { get => phonenumber; }
+        public int Age { get => age; }
+        public string Username { get => username; }
+        public string Password { get => password; }
 
         public virtual void Rent(bool available)
         {
@@ -48,18 +45,19 @@ namespace Bibblan_GA
             return Members;
         }
 
-        public static bool LogIn(string username, string password)
+        public static bool LogIn(string usernameInput, string passwordInput)
         {
             bool matchfound = false;
-            foreach (var members in list)
+            foreach (var member in list)
             {
-                if (members.Username == username && members.Password == password)
+                if (member.Username == usernameInput && member.Password == passwordInput)
                 {
-                    matchfound = true;
-                    return matchfound;
+                    MessageBox.Show("Successfully logged in!");
+                    return matchfound = true;
                 }
             }
-                return matchfound;
+            MessageBox.Show("Username or password incorrect!");
+            return matchfound;
         }
     }
 }
