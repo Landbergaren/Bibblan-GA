@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
 
 namespace Bibblan_GA
 {
@@ -22,35 +10,48 @@ namespace Bibblan_GA
         MainWindow mainWin = new MainWindow();
         private readonly Book selectedBook;
 
+        /// <summary>
+        /// Brings and sets choosen book-values from Mainwindow
+        /// </summary>
+        /// <param name="SelectedBook">The book that user choosed in Mainwindow</param>
         public BookWindow(Book SelectedBook)
         {
             this.selectedBook = SelectedBook;
             InitializeComponent();
             InitializeStringsToFrames(selectedBook);
-            ReserveButton.IsEnabled = MainWindow.match;
-
+            ReserveButton.IsEnabled = MainWindow.UserOnline;
         }
 
+        /// <summary>
+        /// Inserts correct values in the window elements
+        /// </summary>
+        /// <param name="book">Currently choosen book</param>
         public void InitializeStringsToFrames(Book book)
         {
-
-
-            bookAvailableTB.Text = "Available: " + book.StringAvailability + "      Total: " + book.TotalBooks;
-            bookTitelTB.Text = book.Title;
+            BookAvailableTB.Text = "Available: " + book.StringAvailability + "      Total: " + book.TotalBooks;
+            BookTitelTB.Text = book.Title;
             authorTB.Text = book.Author;
             genreTB.Text = book.Genre;
-            bookInfoTB.Text = book.BookInfo;
-
-
+            BookInfoTB.Text = book.BookInfo;
         }
 
-        private void backBtn_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Takes user back to mainwindow and closes current
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mainkWin = new MainWindow();
             mainkWin.Show();
             this.Close();
         }
 
+        /// <summary>
+        /// Reserves current book for the user and updates window-elements
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ReserveButton_Click(object sender, RoutedEventArgs e)
         {
             mainWin.Reserve(selectedBook);

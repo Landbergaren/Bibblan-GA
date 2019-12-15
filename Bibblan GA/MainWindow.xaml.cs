@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using System.IO;
 
 namespace Bibblan_GA
 {
@@ -12,257 +11,333 @@ namespace Bibblan_GA
     /// </summary>
     public partial class MainWindow : Window
     {
-        //TODO Sätt ihop log-out knapp med inbygga LogOut metoden, göra gui-et snyggare, respektabel, ej slampig kod, fixa bättre namn till alla datatyper, kommentera koden
-
-        private List<Account> memberList = Account.BuildMemberList();
-
+        /// <summary>
+        /// Keeps an eye on all checkboxes subscribing to the searchbutton
+        /// </summary>
         public event EventHandler SearchDel;
-
-        public static bool match = false;
-
-        public bool availabilityChecked = false;
+        /// <summary>
+        /// Builds a temporary global list that gets managed and then printed to ListView
+        /// </summary>
+        List<Book> listToBePrinted = new List<Book>();
+        /// <summary>
+        /// Helps all windows to keep check on if user is online.
+        /// </summary>
+        public static bool UserOnline = false;
 
         public MainWindow()
         {
             InitializeComponent();
-            InitializeLibraryList();
-
-            LoggedIn(match);
-            
-            //library = library.OrderBy(x => x.Author).ToList(); <-- Orders lists with a lambda.
+            CheckUserOnline(UserOnline);
         }
 
-
-        #region EventHandlers
-
+        #region Events
+        /// <summary>
+        /// Modifies window-elements and sets user to online if user gives correct input
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void LogInButton_Click(object sender, RoutedEventArgs e)
         {
-            LogIn();
+            bool matchfound = Account.LogIn(UsernameField.Text, PasswordField.Text);
+            CheckUserOnline(matchfound);
+            UsernameField.Clear();
+            PasswordField.Clear();
+        }
+        /// <summary>
+        /// Modifies window-elements and logs out user
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LogOutButton_Click(object sender, RoutedEventArgs e)
+        {
+            LogoutUser();
+            UsernameField.Clear();
+            PasswordField.Clear();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Manages Search-input and prints out to listview
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FindButton_Click(object sender, RoutedEventArgs e)
         {
             listView.Items.Clear();
-
+            listToBePrinted.Clear();
             OnClick();
+            PrintToListView();
         }
-
+        /// <summary>
+        /// Subscribes "AllChecked" to eventhandler SearchDel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AllCB_Checked(object sender, RoutedEventArgs e)
         {
             SearchDel += AllChecked;
         }
 
+        /// <summary>
+        /// Unsubscribes to eventhandler SearchDel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AllCB_Unchecked(object sender, RoutedEventArgs e)
         {
             SearchDel -= AllChecked;
         }
 
-        private void titelCB_Checked(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Subscribes "TitelChecked" to eventhandler SearchDel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TitelCB_Checked(object sender, RoutedEventArgs e)
         {
             SearchDel += TitelChecked;
         }
 
-        private void titelCB_Unchecked(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Unsubscribes "TitelChecked" to eventhandler SearchDel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TitelCB_Unchecked(object sender, RoutedEventArgs e)
         {
             SearchDel -= TitelChecked;
         }
 
+        /// <summary>
+        /// Subscribes "AuthorChecked" to eventhandler SearchDel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AuthorCB_Checked(object sender, RoutedEventArgs e)
         {
             SearchDel += AuthorChecked;
         }
 
+        /// <summary>
+        /// Unsubscribes "AuthorChecked" to eventhandler SearchDel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AuthorCB_Unchecked(object sender, RoutedEventArgs e)
         {
             SearchDel -= AuthorChecked;
         }
 
+        /// <summary>
+        /// Subscribes "GenreChecked" to eventhandler SearchDel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GenreCB_Checked(object sender, RoutedEventArgs e)
         {
             SearchDel += GenreChecked;
         }
 
+        /// <summary>
+        /// Unsubscribes "GenreChecked" to eventhandler SearchDel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GenreCB_Unchecked(object sender, RoutedEventArgs e)
         {
             SearchDel -= GenreChecked;
         }
 
-        private void availableCB_Checked(object sender, RoutedEventArgs e)
-        {
-            availabilityChecked = true;
-        }
-
-        private void availableCB_Unchecked(object sender, RoutedEventArgs e)
-        {
-            availabilityChecked = false;
-        }
-
+        /// <summary>
+        /// Subscribes "IsbnChecked" to eventhandler SearchDel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void IsbnCB_Checked(object sender, RoutedEventArgs e)
         {
             SearchDel += IsbnChecked;
         }
 
+        /// <summary>
+        /// Unsubscribes "IsbnChecked" to eventhandler SearchDel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void IsbnCB_Unchecked(object sender, RoutedEventArgs e)
         {
             SearchDel -= IsbnChecked;
         }
 
-        #endregion EventHandlers
-
-        #region Methods
-
-        public void InitializeLibraryList()
-        {
-            foreach (var book in Library.Books)
-                listView.Items.Add(book);
-        }
-
-        public bool LogIn()
-        {
-            List<Account> list = Account.BuildMemberList();
-
-            foreach (var members in list)
-            {
-                if (members.Username == UsernameField.Text && members.Password == PasswordField.Text)
-                {
-                    match = true;
-                    LoggedIn(match);
-                    MessageBox.Show("Successfully logged in");
-
-                }
-            }
-
-            if (match == false)
-                MessageBox.Show("Error");
-
-            return match;
-        }
-
-        public void LoggedIn(bool x)
-        {
-            if (x == true)
-            {
-                LogInButton.IsEnabled = false;
-                UsernameField.IsReadOnly = true;
-                PasswordField.IsReadOnly = true;
-                FindButton.IsEnabled = true;
-            }
-        }
-
-        public void LogOut(bool x)
-        {
-            LogInButton.IsEnabled = true;
-            UsernameField.IsReadOnly = false;
-            PasswordField.IsReadOnly = false;
-            FindButton.IsEnabled = false;
-            match = false;
-        }
-
-        public void AllChecked(object source, EventArgs args)
-        {
-            var temp = Library.Books.Where(x => (x.Title + x.Genre + x.Isbn + x.Author).ToLower().Contains(searchField.Text.ToLower()));
-            CheckMethod(temp);
-        }
-
-        public void TitelChecked(object source, EventArgs args)
-        {
-            var temp = Library.Books.Where(x => x.Title.ToLower().Contains(searchField.Text.ToLower()));
-            CheckMethod(temp);
-        }
-
-        public void AuthorChecked(object source, EventArgs args)
-        {
-            var temp = Library.Books.Where(x => x.Author.ToLower().Contains(searchField.Text.ToLower()));
-            CheckMethod(temp);
-        }
-
-        public void GenreChecked(object source, EventArgs args)
-        {
-            var temp = Library.Books.Where(x => x.Genre.ToLower().Contains(searchField.Text.ToLower()));
-            CheckMethod(temp);
-        }
-
-        public void AvailableChecked(object source, EventArgs args)
-        {
-            var temp = Library.Books.Where(x => x.Availability.ToString().Contains(searchField.Text.ToLower()));
-            foreach (var item in temp)
-            {
-                if (!listView.Items.Contains(item))
-                {
-                    if (availabilityChecked == false)
-                        if (!listView.Items.Contains(item))
-                            listView.Items.Add(item);
-
-                    if (availabilityChecked == true && item.Availability == true)
-                        if (!listView.Items.Contains(item))
-                            listView.Items.Add(item);
-                }
-            }
-        }
-
-        public void IsbnChecked(object source, EventArgs args)
-        {
-            var temp = Library.Books.Where(x => x.Isbn.ToString().Contains(searchField.Text));
-            CheckMethod(temp);
-        }
-
-        private void CheckMethod(IEnumerable<Book> x)
-        {
-            foreach (var item in x)
-            {
-                if (availabilityChecked == false)
-                    if (!listView.Items.Contains(item))
-                        listView.Items.Add(item);
-
-                if (availabilityChecked == true && item.Availability == true)
-                    if (!listView.Items.Contains(item))
-                        listView.Items.Add(item);
-            }
-        }
-
-        private void listView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        /// <summary>
+        /// Event that Adds user-selected book to selected book and opens new window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var selectedBook = (Book)listView.SelectedValue;
             BookWindow bookWin = new BookWindow(selectedBook);
-
-
 
             bookWin.Show();
             this.Close();
         }
 
-        private void OnClick()
+        #endregion EventHandlers
+
+        #region Methods
+        /// <summary>
+        /// Sets all properties to fit a logged in user
+        /// </summary>
+        /// <param name="matchfound"></param>
+        public void CheckUserOnline(bool matchfound)
         {
+            if (matchfound == true)
             {
-                if (SearchDel != null)
-                    SearchDel(this, EventArgs.Empty);
+                LogInButton.IsEnabled = false;
+                LogOutButton.IsEnabled = true;
+                UsernameField.IsReadOnly = true;
+                PasswordField.IsReadOnly = true;
+                FindButton.IsEnabled = true;
+                UserOnline = true;
             }
         }
 
-        public void Reserve(Book ReservedBook)
+        /// <summary>
+        /// Sets all properties to fit a logged out user
+        /// </summary>
+        public void LogoutUser()
         {
-            if (ReservedBook.Availability == false)
+            LogInButton.IsEnabled = true;
+            LogOutButton.IsEnabled = false;
+            UsernameField.IsReadOnly = false;
+            PasswordField.IsReadOnly = false;
+            UserOnline = false;
+            MessageBox.Show("User has logged out");
+        }
+
+        /// <summary>
+        /// Adds ALL Books to listToBePrinted
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="args"></param>
+        public void AllChecked(object source, EventArgs args)
+        {
+            var filteredList = Library.Books.Where(x => (x.Title + x.Genre + x.Isbn + x.Author).ToLower().Contains(searchField.Text.ToLower()));
+            PrintToGlobalList(filteredList);
+        }
+
+        /// <summary>
+        /// Adds all books where searchfield-input matches booktitel to listToBePrinted
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="args"></param>
+        public void TitelChecked(object source, EventArgs args)
+        {
+            var filteredList = Library.Books.Where(x => x.Title.ToLower().Contains(searchField.Text.ToLower()));
+            PrintToGlobalList(filteredList);
+        }
+
+        /// <summary>
+        /// Adds all books where searchfield-input matches book author to listToBePrinted
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="args"></param>
+        public void AuthorChecked(object source, EventArgs args)
+        {
+            var filteredList = Library.Books.Where(x => x.Author.ToLower().Contains(searchField.Text.ToLower()));
+            PrintToGlobalList(filteredList);
+        }
+
+        /// <summary>
+        /// Adds all books where searchfield-input matches book-genre to listToBePrinted
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="args"></param>
+        public void GenreChecked(object source, EventArgs args)
+        {
+            var filteredList = Library.Books.Where(x => x.Genre.ToLower().Contains(searchField.Text.ToLower()));
+            PrintToGlobalList(filteredList);
+        }
+
+        /// <summary>
+        /// Filters out all the available books from listToBePrinted and adds to ListView
+        /// </summary>
+        public void AvailableChecked()
+        {
+            var temp = listToBePrinted.Where(x => x.Availability);
+
+            foreach (var item in temp)
+            {
+                listView.Items.Add(item);
+            }
+        }
+
+        /// <summary>
+        /// Adds all books where searchfield-input matches book-Isbn to listToBePrinted
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="args"></param>
+        public void IsbnChecked(object source, EventArgs args)
+        {
+            var filteredList = Library.Books.Where(x => x.Isbn.ToString().Contains(searchField.Text));
+            PrintToGlobalList(filteredList);
+        }
+        
+        /// <summary>
+        /// Adds list to listToBePrinted
+        /// </summary>
+        /// <param name="list">List to be added in</param>
+        public void PrintToGlobalList(IEnumerable<Book> list)
+        {
+            foreach (var book in list)
+            {
+                listToBePrinted.Add(book);
+            }
+        }
+
+        /// <summary>
+        /// Prints listToBePrinted to ListView without duplicates
+        /// </summary>
+        public void PrintToListView()
+        {
+            var ListqueryList = listToBePrinted.Distinct().ToList();
+
+            if ((bool)!availableCB.IsChecked)
+            {
+                foreach (var book in ListqueryList)
+                    listView.Items.Add(book);
+            }
+            else
+                AvailableChecked();
+        }
+
+        /// <summary>
+        /// publisher for the applications Search-button
+        /// </summary>
+        private void OnClick()
+        {
+            {
+                SearchDel?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        /// <summary>
+        /// Reserves book for user if available
+        /// </summary>
+        /// <param name="SelectedBook">Current choosen book by user</param>
+        public void Reserve(Book SelectedBook)
+        {
+            if (SelectedBook.Availability == false)
                 MessageBox.Show("No books in storage");
 
             else
             {
                 foreach (var item in Library.Books)
-                    if (ReservedBook.Title.Equals(item.Title))
+                    if (SelectedBook.Title.Equals(item.Title))
                     {
                         item.TotalBooks--;
-
-                        if (item.TotalBooks < 1)
-                        {
-                            ReservedBook.Availability = false;
-                            item.Availability = false;
-                        }
                         MessageBox.Show("Book reserved");
                     }
             }
         }
-
         #endregion Methods
-
-
     }
 }

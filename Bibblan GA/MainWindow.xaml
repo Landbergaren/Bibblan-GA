@@ -6,17 +6,21 @@
         xmlns:local="clr-namespace:Bibblan_GA"
         mc:Ignorable="d"
         Title="Bibblan" WindowStartupLocation="CenterScreen" Width="1000" Height="600">
-    <Border Padding="20 10 20 10">
-        <StackPanel>
+    <Border Padding="20 10 20 10" Background="Wheat">
+        <StackPanel Background="Wheat">
             <TextBlock FontSize="30" HorizontalAlignment="center" Margin="0 0 0 40">BIBBLAN.SE</TextBlock>
             <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="15*"/>
+                    <RowDefinition Height="584*"/>
+                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Grid.Column="0" Margin="0,0,0,300">
-                    <TextBlock Text="Search" />
+                <StackPanel Grid.Column="0" Margin="0,0,0,300" Grid.RowSpan="2">
+                    <TextBlock Text="Search" Margin="0, 0, 0, 5"/>
                     <TextBox x:Name="searchField" Width="250" HorizontalAlignment="Left" Margin="0 0 0 10" />
 
                     <Grid Width="260" HorizontalAlignment="Left">
@@ -30,7 +34,7 @@
                             <TextBlock Text="All" FontWeight="Bold" />
                             <CheckBox x:Name="AllCB" IsChecked="True" Checked="AllCB_Checked" Unchecked="AllCB_Unchecked"/>
                             <TextBlock Text="Title" />
-                            <CheckBox x:Name="titelCB" Unchecked="titelCB_Unchecked" Checked="titelCB_Checked" />
+                            <CheckBox x:Name="TitelCB" Unchecked="TitelCB_Unchecked" Checked="TitelCB_Checked" />
                         </StackPanel>
                         <StackPanel Grid.Column="1" Width="50" HorizontalAlignment="Left">
                             <TextBlock Text="Author" />
@@ -40,7 +44,7 @@
                         </StackPanel>
                         <StackPanel Grid.Column="2" >
                             <TextBlock Text="Available"  />
-                            <CheckBox x:Name="availableCB" Checked="availableCB_Checked" Unchecked="availableCB_Unchecked" />
+                            <CheckBox x:Name="availableCB" />
                             <TextBlock Text="ISBN" />
                             <CheckBox x:Name="IsbnCB" Checked="IsbnCB_Checked" Unchecked="IsbnCB_Unchecked"  />
                         </StackPanel>
@@ -52,14 +56,20 @@
                             <ColumnDefinition Width="151*"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.ColumnSpan="3" Margin="0,0,-0.4,0.2">
-                            <Button x:Name="FindButton" IsEnabled="False" Content="Find" Margin="0 10" Width="80" HorizontalAlignment="Left" Click="Button_Click" />
+                            <Button x:Name="FindButton" IsEnabled="True" Content="Find" Margin="0 10" Width="80" HorizontalAlignment="Left" Click="FindButton_Click" />
+                            <TextBlock Text="Account" />
+                            <TextBox x:Name="UsernameField" HorizontalAlignment="Left" Height="23" Margin="0,0,0,10" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                            <TextBlock Text="Password" />
+                            <TextBox x:Name="PasswordField" HorizontalAlignment="Left" Height="23" Margin="0,0,0,10" VerticalAlignment="Top" Width="120"/>
+                            <Button x:Name="LogInButton" Content="Log in" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="75" Click="LogInButton_Click"/>
+                            <Button x:Name="LogOutButton" Content="Log out" IsEnabled="False" HorizontalAlignment="Left" Margin="0,10,0,0" Width="75" Click="LogOutButton_Click" />
                         </StackPanel>
                     </Grid>
                 </StackPanel>
 
-                <StackPanel Grid.Column="1" Grid.Row="0" >
+                <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" >
 
-                    <ListView x:Name="listView" Height="400" MouseDoubleClick="listView_MouseDoubleClick">
+                    <ListView x:Name="listView" Height="400" MouseDoubleClick="ListView_MouseDoubleClick" BorderBrush="Wheat">
                         <ListView.View>
                             <GridView >
                                 <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}" />
@@ -68,16 +78,13 @@
                                 <GridViewColumn Header="ISBN" DisplayMemberBinding="{Binding Isbn}" />
                                 <GridViewColumn Header="Pages" DisplayMemberBinding="{Binding Pages}" />
                                 <GridViewColumn Header="Available" DisplayMemberBinding="{Binding StringAvailability}" />
-
                             </GridView>
-
                         </ListView.View>
                     </ListView>
                 </StackPanel>
-                <TextBox x:Name="UsernameField" HorizontalAlignment="Left" Height="23" Margin="0,200,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="PasswordField" HorizontalAlignment="Left" Height="23" Margin="0,244,0,0" VerticalAlignment="Top" Width="120"/>
-                <Button x:Name="LogInButton" Content="Log in" HorizontalAlignment="Left" Margin="0,294,0,0" VerticalAlignment="Top" Width="75" Click="LogInButton_Click"/>
+                <StackPanel Grid.RowSpan="2">
 
+                </StackPanel>
             </Grid>
             <Grid>
                 <StackPanel>

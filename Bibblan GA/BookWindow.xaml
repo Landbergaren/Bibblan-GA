@@ -7,10 +7,10 @@
         mc:Ignorable="d"
         Title="Your Book" WindowStartupLocation="CenterScreen" Width="1000" Height="600">
 
-    <Border Padding="20">
+    <Border Padding="20" Background="Wheat">
 
         <StackPanel>
-            <TextBlock x:Name="bookTitelTB" Text="Book titel" HorizontalAlignment="Center" FontSize="40" FontWeight="Bold" Margin="10" />
+            <TextBlock x:Name="BookTitelTB" Text="Book titel" HorizontalAlignment="Center" FontSize="40" FontWeight="Bold" Margin="10" />
 
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -29,7 +29,7 @@
                     <TextBlock x:Name="genreTB" Text="some text" Margin="10"/>
                 </StackPanel>
                 <Grid Grid.Column="2" Margin="0 70 0 0">
-                    <TextBlock x:Name="bookAvailableTB" Text="Available" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" />
+                    <TextBlock x:Name="BookAvailableTB" Text="Available" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" />
                 </Grid>
             </Grid>
             <Grid>
@@ -38,14 +38,14 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Border Padding="20" BorderThickness="2px" BorderBrush="Black">
+                <Border Padding="20" BorderBrush="Black">
                     <Grid Height="260" Grid.Column="0">
-                        <TextBlock x:Name="bookInfoTB" TextWrapping="Wrap" Text="some info about the book"/>
+                        <TextBlock x:Name="BookInfoTB" TextWrapping="Wrap" Text="some info about the book" Background="White" Padding="10"/>
                     </Grid>
                 </Border>
                 <Border Padding="20" Grid.Column="1">
                     <Grid >
-                        <Button x:Name="backBtn" Content="Back" Padding="5" Height="30" VerticalAlignment="Top" Click="backBtn_Click" />
+                        <Button x:Name="BackBtn" Content="Back" Padding="5" Height="30" VerticalAlignment="Top" Click="BackBtn_Click" />
                         <Button x:Name="ReserveButton" Content="Reserve" Height="30" VerticalAlignment="Bottom" Click="ReserveButton_Click"/>
                     </Grid>
                 </Border>
